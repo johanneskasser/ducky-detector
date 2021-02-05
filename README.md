@@ -1,4 +1,4 @@
-# Ducky Detector Version 2
+# Ducky Detector
 
 Dieses Projekt erweitert den DuckyDetektor von Philipp Lohse um einen Antivirus
 bzw. Malware Scan und um eine grafische Oberfläche.
