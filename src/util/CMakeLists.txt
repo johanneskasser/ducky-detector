@@ -1,0 +1,7 @@
+add_library(Device Device.cpp)
+add_library(FileHandler FileHandler.cpp)
+add_library(Interface Interface.cpp)
+add_library(Setup Setup.cpp)
+add_library(PrintingService printing/PrintingService.cpp)
+add_library(PrintingDetailsService printing/PrintingDetailsService.cpp)
+add_library(PrintingResultService printing/PrintingResultService.cpp)

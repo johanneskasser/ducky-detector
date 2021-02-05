@@ -1,0 +1,1 @@
+add_library(DuckyDetectorApplication DuckyDetectorApplicationGui.cpp DuckyDetectorApplicationTerminal.cpp DuckyDetectorApplicationTerminal.hpp)
