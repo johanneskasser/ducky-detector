@@ -30,6 +30,61 @@ function endspin {
     printf "\r%s\n" "$@"
 }
 
+function installTouchScreen {
+  echo "=== Configuration of Touchscreen ==="
+
+
+
+  if [ -f "/boot/config.txt" ]; then
+    echo "#Joy-IT Touchscreen configuration"
+    echo "dtparam=spi=on" >> /boot/config.txt
+    echo "dtoverlay=joy-IT-Display-Driver-32b-overlay:rotate=270,swapxy=1" >> /boot/config.txt
+    echo "dtparam=audio=on" >> /boot/config.txt
+    echo "max_usb_current=1" >> /boot/config.txt
+    echo "hdmi_force_hotplug=1" >> /boot/config.txt
+    echo "config_hdmi_boost=7" >> /boot/config.txt
+    echo "hdmi_drive=1" >> /boot/config.txt
+    echo "hdmi_ignore_edid=0xa5000080" >> /boot/config.txt
+
+    sed /dtoverlay=vc4-fkms-v3d/d /boot/config.txt
+  else
+    echo "ERROR: OS does not seem to be Raspberry OS! -> File /boot/config.txt cannot be found!"
+    return
+  fi
+
+  if [ -f "/boot/cmdline.txt" ]; then
+    echo " fbcon=map:10"
+  else
+    echo "ERROR: OS does not seem to be Raspberry OS! -> File /boot/cmdline.txt cannot be found!"
+    return
+  fi
+
+  echo "Section "InputClass"" >> /usr/share/X11/xorg.conf.d/99-calibration.conf
+  echo   "Identifier "calibration"" >> /usr/share/X11/xorg.conf.d/99-calibration.conf
+  echo   "MatchProduct "ADS7846 Touchscreen"" >> /usr/share/X11/xorg.conf.d/99-calibration.conf
+  echo   "Option "Calibration" "160 3723 3896 181"" >> /usr/share/X11/xorg.conf.d/99-calibration.conf
+  echo   "Option "SwapAxes" "0"" >> /usr/share/X11/xorg.conf.d/99-calibration.conf
+  echo "EndSection" >> /usr/share/X11/xorg.conf.d/99-calibration.conf
+
+}
+
+function enableAutoStartup {
+  echo "=== Configuration of Autostart ==="
+
+  mkdir /home/pi/.config/autostart
+
+  echo "[Desktop Entry]" >> /home/pi/.config/autostart/duckyDetector.desktop
+  echo "Type=Application" >> /home/pi/.config/autostart/duckyDetector.desktop
+  echo "Name=DuckyDetector" >> /home/pi/.config/autostart/duckyDetector.desktop
+  echo "Exec=sudo /home/pi/duckyDetector/DuckyDetector" >> /home/pi/.config/autostart/duckyDetector.desktop
+
+  if [ -f "/home/pi/.config/autostart/duckyDetector.desktop" ]; then
+    echo "Startup configuration successful!"
+  else
+    echo "Something went wrong"
+  fi
+}
+
 user=$(whoami)
 
 if [ "$user" != "root" ]; then
@@ -56,9 +111,9 @@ else
   read -rp "> " answerTouchscreen
 
   if [ "$answerTouchscreen" = 1 ]; then
-    echo "Haha not implemented yet"
+    installTouchScreen
   else
-    echo "OK, good choice"
+    echo "Proceeding to automatic Start"
   fi
 
   echo "=== Do you want to start the ducky-detector everytime the raspberry pi is started? ==="
@@ -67,10 +122,10 @@ else
   read -rp "> " answerAutoStart
 
   if [ "$answerAutoStart" = 1 ]; then
-    echo "Not Implemented yet"
+    enableAutoStartup
   fi
-  echo "=== Installation Complete. Starting ducky-detector! ==="
   if [ -f "./DuckyDetector" ]; then
+    echo "=== Installation Complete. Starting ducky-detector! ==="
     rm ./debug.txt
     sudo ./DuckyDetector
   else
