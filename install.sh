@@ -76,7 +76,7 @@ function enableAutoStartup {
   echo "[Desktop Entry]" >> /home/pi/.config/autostart/duckyDetector.desktop
   echo "Type=Application" >> /home/pi/.config/autostart/duckyDetector.desktop
   echo "Name=DuckyDetector" >> /home/pi/.config/autostart/duckyDetector.desktop
-  echo "Exec=sudo /home/pi/duckyDetector/DuckyDetector" >> /home/pi/.config/autostart/duckyDetector.desktop
+  echo "Exec=sudo /home/pi/ducky-detector/DuckyDetector" >> /home/pi/.config/autostart/duckyDetector.desktop
 
   if [ -f "/home/pi/.config/autostart/duckyDetector.desktop" ]; then
     echo "Startup configuration successful!"
