@@ -1,8 +1,48 @@
 #include "DuckyDetectorGui.hpp"
 
 DuckyDetectorGui::DuckyDetectorGui() {
+    // Initialize the GtkBuilder object
+    Glib::RefPtr<Gtk::Builder> builder = Gtk::Builder::create();
+
+    // Load the UI file
+    try {
+        builder->add_from_file("example.glade");
+    }
+    catch(const Glib::FileError& ex) {
+        std::cerr << "FileError: " << ex.what() << std::endl;
+        return;
+    }
+    catch(const Glib::MarkupError& ex) {
+        std::cerr << "MarkupError: " << ex.what() << std::endl;
+        return;
+    }
+    catch(const Gtk::BuilderError& ex) {
+        std::cerr << "BuilderError: " << ex.what() << std::endl;
+        return;
+    }
+
+    // Get the widgets from the UI file
+    builder->get_widget("main_window", this);
+    builder->get_widget("info_bar", &infoBar);
+    builder->get_widget("info_bar_message", &infoBarMessage);
+    builder->get_widget("text_view", &textView);
+    builder->get_widget("ok_button", &okButton);
+    builder->get_widget("details_button", &detailsButton);
+    builder->get_widget("cancel_button", &cancelButton);
+    builder->get_widget("button_box", &buttonBox);
+    builder->get_widget("scrolled_window", &scrolledWindow);
+    builder->get_widget("progress_bar", &progressBar);
+
+    // Connect the signals
+    okButton.signal_clicked().connect(sigc::mem_fun(*this, &DuckyDetectorGui::onOkButtonClicked));
+    detailsButton.signal_clicked().connect(sigc::mem_fun(*this, &DuckyDetectorGui::onDetailsButtonClicked));
+    cancelButton.signal_clicked().connect(sigc::mem_fun(*this, &DuckyDetectorGui::onCancelButtonClicked));
+
+    // Initialize the details dialog
     initDetailsDialog();
-    initMainWindow();
+
+    // Show the main window
+    show_all();
 }
 
 void DuckyDetectorGui::hideInfoBar() {
@@ -112,36 +152,32 @@ void DuckyDetectorGui::initMainWindow() {
 }
 
 void DuckyDetectorGui::initDetailsDialog() {
-    detailsDialog = new Gtk::MessageDialog(*this, "Details", false, Gtk::MESSAGE_INFO, Gtk::BUTTONS_NONE);
-    detailsDialog->set_default_size(320, 240);
-    detailsDialog->set_title("Details");
-    detailsDialog->set_position(Gtk::WIN_POS_CENTER_ON_PARENT);
-    detailsDialog->set_decorated(false);
-    detailsDialog->set_border_width(5);
-    detailsDialog->signal_hide().connect(sigc::mem_fun(*this, &DuckyDetectorGui::resetDetailsDialog));
+    // Initialize the GtkBuilder object
+    Glib::RefPtr<Gtk::Builder> builder = Gtk::Builder::create();
 
-    detailsTextBuffer = Gtk::TextBuffer::create();
+    // Load the details dialog UI file
+    try {
+        builder->add_from_file("details_dialog.glade");
+    }
+    catch(const Glib::FileError& ex) {
+        std::cerr << "FileError: " << ex.what() << std::endl;
+        return;
+    }
+    catch(const Glib::MarkupError& ex) {
+        std::cerr << "MarkupError: " << ex.what() << std::endl;
+        return;
+    }
+    catch(const Gtk::BuilderError& ex) {
+        std::cerr << "BuilderError: " << ex.what() << std::endl;
+        return;
+    }
 
-    detailsTextView.set_editable(false);
-    detailsTextView.set_cursor_visible(false);
-    detailsTextView.set_buffer(detailsTextBuffer);
+    // Get the widgets from the details dialog UI file
+    builder->get_widget("details_dialog", &detailsDialog);
+    builder->get_widget("details_text_view", &detailsTextView);
 
-    detailsScrolledWindow.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
-    detailsScrolledWindow.add(detailsTextView);
-
-    detailsOkButton.set_label("OK");
-    detailsOkButton.signal_clicked().connect(sigc::mem_fun(detailsDialog, &Gtk::Window::hide));
-
-    detailsButtonBox.pack_start(detailsOkButton);
-    detailsButtonBox.set_border_width(5);
-    detailsButtonBox.set_spacing(5);
-    detailsButtonBox.set_layout(Gtk::BUTTONBOX_CENTER);
-
-    detailsBox.set_orientation(Gtk::ORIENTATION_VERTICAL);
-    detailsBox.pack_start(detailsScrolledWindow);
-    detailsBox.pack_start(detailsButtonBox, Gtk::PACK_SHRINK);
-
-    detailsDialog->get_content_area()->pack_start(detailsBox);
+    // Connect the signals
+    detailsDialog->signal_response().connect(sigc::mem_fun(*this, &DuckyDetectorGui::onDetailsDialogResponse));
 }
 
 DuckyDetectorGui::~DuckyDetectorGui() {
