@@ -1,42 +1,36 @@
 #include "DuckyDetectorGui.hpp"
 
 DuckyDetectorGui::DuckyDetectorGui() {
-    // Initialize the GtkBuilder object
-    Glib::RefPtr<Gtk::Builder> builder = Gtk::Builder::create();
+    Glib::RefPtr<Gtk::Builder> builder = Gtk::Builder::create_from_file("/home/johannes/ducky-detector/src/guiXML/duckyDetector.glade");
 
-    // Load the UI file
-    try {
-        builder->add_from_file("example.glade");
-    }
-    catch(const Glib::FileError& ex) {
-        std::cerr << "FileError: " << ex.what() << std::endl;
-        return;
-    }
-    catch(const Glib::MarkupError& ex) {
-        std::cerr << "MarkupError: " << ex.what() << std::endl;
-        return;
-    }
-    catch(const Gtk::BuilderError& ex) {
-        std::cerr << "BuilderError: " << ex.what() << std::endl;
-        return;
-    }
+
+    // Initialize the GtkBuilder object
+    // builder = gtk_builder_new_from_file("../guiXML/duckyDetector.glade");
+
+    // builder->add_from_file("../guiXML/duckyDetector.glade");
+    
+
+    // infoBar = GTK_WIDGET(gtk_builder_get_object(builder, "main_window"));
+
+    // builder->get_widget("buttonBox", buttonBox);
 
     // Get the widgets from the UI file
-    builder->get_widget("main_window", this);
-    builder->get_widget("info_bar", &infoBar);
-    builder->get_widget("info_bar_message", &infoBarMessage);
-    builder->get_widget("text_view", &textView);
-    builder->get_widget("ok_button", &okButton);
-    builder->get_widget("details_button", &detailsButton);
-    builder->get_widget("cancel_button", &cancelButton);
-    builder->get_widget("button_box", &buttonBox);
-    builder->get_widget("scrolled_window", &scrolledWindow);
-    builder->get_widget("progress_bar", &progressBar);
+    builder->get_widget("RubberDuckyDetector", rubberDuckyDetector);
+    builder->get_widget("infoBar", infoBar);
+    builder->get_widget("infoBarMessage", infoBarMessage);
+    builder->get_widget("textView", textView);
+    builder->get_widget("okButton", okButton);
+    builder->get_widget("detailsButton", detailsButton);
+    builder->get_widget("cancelButton", cancelButton);
+    builder->get_widget("buttonBox", buttonBox);
+    builder->get_widget("scrolledWindow", scrolledWindow);
+    builder->get_widget("progressBar", progressBar);
+    // builder->get_object("textBuffer", textBuffer);
 
     // Connect the signals
-    okButton.signal_clicked().connect(sigc::mem_fun(*this, &DuckyDetectorGui::onOkButtonClicked));
-    detailsButton.signal_clicked().connect(sigc::mem_fun(*this, &DuckyDetectorGui::onDetailsButtonClicked));
-    cancelButton.signal_clicked().connect(sigc::mem_fun(*this, &DuckyDetectorGui::onCancelButtonClicked));
+    // (*okButton).signal_clicked().connect(sigc::mem_fun(*this, &DuckyDetectorGui::onOkButtonClicked));
+    // (*detailsButton).signal_clicked().connect(sigc::mem_fun(*this, &DuckyDetectorGui::onDetailsButtonClicked));
+    //(*cancelButton).signal_clicked().connect(sigc::mem_fun(*this, &DuckyDetectorGui::onCancelButtonClicked));
 
     // Initialize the details dialog
     initDetailsDialog();
@@ -46,26 +40,26 @@ DuckyDetectorGui::DuckyDetectorGui() {
 }
 
 void DuckyDetectorGui::hideInfoBar() {
-    infoBar.hide();
+    (*infoBar).hide();
 }
 
 void DuckyDetectorGui::showDetailsDialog(const std::string& details) {
-    detailsTextBuffer->set_text(details);
+    (*detailsTextBuffer)->set_text(details);
     detailsDialog->show_all_children();
     detailsDialog->fullscreen();
     detailsDialog->run();
 }
 
 void DuckyDetectorGui::showError(const std::string& text) {
-    infoBarMessage.set_text(text);
-    infoBar.set_message_type(Gtk::MESSAGE_ERROR);
-    infoBar.show();
+    (*infoBarMessage).set_text(text);
+    (*infoBar).set_message_type(Gtk::MESSAGE_ERROR);
+    (*infoBar).show();
 }
 
 void DuckyDetectorGui::showSuccess(const std::string& text) {
-    infoBarMessage.set_text(text);
-    infoBar.set_message_type(Gtk::MESSAGE_INFO);
-    infoBar.show();
+    (*infoBarMessage).set_text(text);
+    (*infoBar).set_message_type(Gtk::MESSAGE_INFO);
+    (*infoBar).show();
 }
 
 void DuckyDetectorGui::showInfoDialog() {
@@ -77,20 +71,20 @@ void DuckyDetectorGui::showInfoDialog() {
 }
 
 void DuckyDetectorGui::showProgressBar() {
-    progressBar.show();
+    (*progressBar).show();
 }
 
 void DuckyDetectorGui::setProgress(double progress) {
-    double newProgress = progressBar.get_fraction() + progress;
-    progressBar.set_fraction(newProgress);
+    double newProgress = (*progressBar).get_fraction() + progress;
+    (*progressBar).set_fraction(newProgress);
 }
 
 void DuckyDetectorGui::resetDetailsDialog() {
-    detailsTextBuffer->set_text("");
+    (*detailsTextBuffer)->set_text("");
 }
 
 void DuckyDetectorGui::resetProgressBar() {
-    progressBar.set_fraction(0.0);
+    (*progressBar).set_fraction(0.0);
 }
 
 void DuckyDetectorGui::setText(const std::string& text) {
@@ -100,7 +94,7 @@ void DuckyDetectorGui::setText(const std::string& text) {
 void DuckyDetectorGui::setTextForReset(const std::string& text) {
     textBuffer->set_text(textBuffer->get_text() + text);
 }
-
+/*
 void DuckyDetectorGui::initMainWindow() {
     set_default_size(320, 240);
     set_title(title);
@@ -108,7 +102,7 @@ void DuckyDetectorGui::initMainWindow() {
     set_decorated(false);
     set_border_width(5);
 
-    textBuffer = Gtk::TextBuffer::create();
+    (*textBuffer) = Gtk::TextBuffer::create();
 
     textView.set_editable(false);
     textView.set_cursor_visible(false);
@@ -149,36 +143,25 @@ void DuckyDetectorGui::initMainWindow() {
 
     infoBar.hide();
     progressBar.hide();
-}
+}*/
 
 void DuckyDetectorGui::initDetailsDialog() {
     // Initialize the GtkBuilder object
     Glib::RefPtr<Gtk::Builder> builder = Gtk::Builder::create();
 
-    // Load the details dialog UI file
-    try {
-        builder->add_from_file("details_dialog.glade");
-    }
-    catch(const Glib::FileError& ex) {
-        std::cerr << "FileError: " << ex.what() << std::endl;
-        return;
-    }
-    catch(const Glib::MarkupError& ex) {
-        std::cerr << "MarkupError: " << ex.what() << std::endl;
-        return;
-    }
-    catch(const Gtk::BuilderError& ex) {
-        std::cerr << "BuilderError: " << ex.what() << std::endl;
-        return;
-    }
+    builder->add_from_file("/home/johannes/ducky-detector/src/guiXML/details_dialog.glade");
 
     // Get the widgets from the details dialog UI file
-    builder->get_widget("details_dialog", &detailsDialog);
-    builder->get_widget("details_text_view", &detailsTextView);
+    builder->get_widget("details_dialog", detailsDialog);
+    builder->get_widget("details_text_view", detailsTextView);
 
     // Connect the signals
-    detailsDialog->signal_response().connect(sigc::mem_fun(*this, &DuckyDetectorGui::onDetailsDialogResponse));
+    // detailsDialog->signal_response().connect(sigc::mem_fun(*this, &DuckyDetectorGui::onDetailsDialogResponse));
 }
+/*
+Gtk::ApplicationWindow* DuckyDetectorGui::getApplicationWindow() {
+    return rubberDuckyDetector;
+}*/
 
 DuckyDetectorGui::~DuckyDetectorGui() {
     delete detailsDialog;

@@ -3,7 +3,7 @@
 <interface>
   <requires lib="gtk+" version="3.24"/>
   <object class="GtkTextBuffer" id="textBuffer"/>
-  <object class="GtkApplicationWindow" id="Rubber Ducky Detector">
+  <object class="GtkApplicationWindow" id="RubberDuckyDetector">
     <property name="width-request">320</property>
     <property name="height-request">240</property>
     <property name="can-focus">False</property>

@@ -31,22 +31,22 @@ void DuckyDetectorApplicationGui::runApplication() {
     applicationWindow->setText(PrintingService::getLogoForGui() + PrintingService::getStartOfScanProcessTextForGui());
 
     okButtonSignalConnection.disconnect();
-    okButtonSignalConnection = applicationWindow->okButton.signal_clicked().connect(sigc::mem_fun(*this,
+    okButtonSignalConnection = applicationWindow->okButton->signal_clicked().connect(sigc::mem_fun(*this,
         &DuckyDetectorApplicationGui::onStartScanProcessAndCheckSystemRequirements));
 
     detailsButtonSignalConnection.disconnect();
 
     cancelButtonSignalConnection.disconnect();
-    cancelButtonSignalConnection = applicationWindow->cancelButton.signal_clicked().connect(sigc::mem_fun(*this,
+    cancelButtonSignalConnection = applicationWindow->cancelButton->signal_clicked().connect(sigc::mem_fun(*this,
         &DuckyDetectorApplicationGui::onCancelButtonClicked));
 }
 
 void DuckyDetectorApplicationGui::onStartScanProcessAndCheckSystemRequirements() {
-    detailsButtonSignalConnection = applicationWindow->detailsButton.signal_clicked().connect(sigc::mem_fun(*this,
+    detailsButtonSignalConnection = applicationWindow->detailsButton->signal_clicked().connect(sigc::mem_fun(*this,
         &DuckyDetectorApplicationGui::onPreparationDetails));
 
     cancelButtonSignalConnection.disconnect();
-    cancelButtonSignalConnection = applicationWindow->cancelButton.signal_clicked().connect(sigc::mem_fun(*this,
+    cancelButtonSignalConnection = applicationWindow->cancelButton->signal_clicked().connect(sigc::mem_fun(*this,
         &DuckyDetectorApplicationGui::onReset));
 
     if (!scanner.startCheckSystemRequirements()) {
@@ -61,7 +61,7 @@ void DuckyDetectorApplicationGui::onStartScanProcessAndCheckSystemRequirements()
 
 void DuckyDetectorApplicationGui::onUsbPreCheck() {
     detailsButtonSignalConnection.disconnect();
-    detailsButtonSignalConnection = applicationWindow->detailsButton.signal_clicked().connect(sigc::mem_fun(*this,
+    detailsButtonSignalConnection = applicationWindow->detailsButton->signal_clicked().connect(sigc::mem_fun(*this,
         &DuckyDetectorApplicationGui::onUsbPreCheckDetails));
 
     if (!scanner.startUsbPreCheck()) {
@@ -78,7 +78,7 @@ void DuckyDetectorApplicationGui::onInitialPeripheryAnalysis() {
     int result;
 
     detailsButtonSignalConnection.disconnect();
-    detailsButtonSignalConnection = applicationWindow->detailsButton.signal_clicked().connect(sigc::mem_fun(*this,
+    detailsButtonSignalConnection = applicationWindow->detailsButton->signal_clicked().connect(sigc::mem_fun(*this,
         &DuckyDetectorApplicationGui::onPeripheryDetails));
 
     applicationWindow->showInfoDialog();
@@ -110,7 +110,7 @@ void DuckyDetectorApplicationGui::onSecondPeripheryAnalysis() {
         applicationWindow->setText(PrintingService::getContinueWithNextStageForGui("partition"));
 
         okButtonSignalConnection.disconnect();
-        okButtonSignalConnection = applicationWindow->okButton.signal_clicked().connect(sigc::mem_fun(*this,
+        okButtonSignalConnection = applicationWindow->okButton->signal_clicked().connect(sigc::mem_fun(*this,
             &DuckyDetectorApplicationGui::onStartPartitionAnalysis));
     }
 }
@@ -119,7 +119,7 @@ void DuckyDetectorApplicationGui::onStartPartitionAnalysis() {
     int result;
 
     detailsButtonSignalConnection.disconnect();
-    detailsButtonSignalConnection = applicationWindow->detailsButton.signal_clicked().connect(sigc::mem_fun(*this,
+    detailsButtonSignalConnection = applicationWindow->detailsButton->signal_clicked().connect(sigc::mem_fun(*this,
         &DuckyDetectorApplicationGui::onPartitionDetails));
 
     result = scanner.startPartitionAnalysis();
@@ -134,7 +134,7 @@ void DuckyDetectorApplicationGui::onStartPartitionAnalysis() {
         applicationWindow->setText(PrintingService::getContinueWithNextStageForGui("file extension"));
 
         okButtonSignalConnection.disconnect();
-        okButtonSignalConnection = applicationWindow->okButton.signal_clicked().connect(sigc::mem_fun(*this,
+        okButtonSignalConnection = applicationWindow->okButton->signal_clicked().connect(sigc::mem_fun(*this,
             &DuckyDetectorApplicationGui::onStartFileExtensionAnalysis));
     }
 }
@@ -143,7 +143,7 @@ void DuckyDetectorApplicationGui::onStartFileExtensionAnalysis() {
     int result;
 
     detailsButtonSignalConnection.disconnect();
-    detailsButtonSignalConnection = applicationWindow->detailsButton.signal_clicked().connect(sigc::mem_fun(*this,
+    detailsButtonSignalConnection = applicationWindow->detailsButton->signal_clicked().connect(sigc::mem_fun(*this,
         &DuckyDetectorApplicationGui::onFileExtensionDetails));
 
     result = scanner.startFileExtensionAnalysis();
@@ -158,7 +158,7 @@ void DuckyDetectorApplicationGui::onStartFileExtensionAnalysis() {
         applicationWindow->setText(PrintingService::getContinueWithNextStageForGui("malware"));
 
         okButtonSignalConnection.disconnect();
-        okButtonSignalConnection = applicationWindow->okButton.signal_clicked().connect(sigc::mem_fun(*this,
+        okButtonSignalConnection = applicationWindow->okButton->signal_clicked().connect(sigc::mem_fun(*this,
             &DuckyDetectorApplicationGui::onStartMalwareAnalysis));
     }
 }
@@ -167,7 +167,7 @@ void DuckyDetectorApplicationGui::onStartMalwareAnalysis() {
     int result;
 
     detailsButtonSignalConnection.disconnect();
-    detailsButtonSignalConnection = applicationWindow->detailsButton.signal_clicked().connect(sigc::mem_fun(*this,
+    detailsButtonSignalConnection = applicationWindow->detailsButton->signal_clicked().connect(sigc::mem_fun(*this,
         &DuckyDetectorApplicationGui::onMalwareDetails));
 
     result = scanner.startMalwareAnalysis();
@@ -182,7 +182,7 @@ void DuckyDetectorApplicationGui::onStartMalwareAnalysis() {
         applicationWindow->setText(PrintingService::getProcessWentGoodTextForGui());
 
         okButtonSignalConnection.disconnect();
-        okButtonSignalConnection = applicationWindow->okButton.signal_clicked().connect(sigc::mem_fun(*this,
+        okButtonSignalConnection = applicationWindow->okButton->signal_clicked().connect(sigc::mem_fun(*this,
             &DuckyDetectorApplicationGui::onReset));
     }
 }
@@ -191,11 +191,11 @@ void DuckyDetectorApplicationGui::onReset() {
     applicationWindow->setTextForReset(PrintingService::getResetTextForGui());
 
     okButtonSignalConnection.disconnect();
-    okButtonSignalConnection = applicationWindow->okButton.signal_clicked().connect(sigc::mem_fun(*this,
+    okButtonSignalConnection = applicationWindow->okButton->signal_clicked().connect(sigc::mem_fun(*this,
         &DuckyDetectorApplicationGui::runApplication));
 
     cancelButtonSignalConnection.disconnect();
-    cancelButtonSignalConnection = applicationWindow->cancelButton.signal_clicked().connect(sigc::mem_fun(*this,
+    cancelButtonSignalConnection = applicationWindow->cancelButton->signal_clicked().connect(sigc::mem_fun(*this,
         &DuckyDetectorApplicationGui::runApplication));
 }
 
