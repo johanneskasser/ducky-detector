@@ -15,7 +15,8 @@ DuckyDetectorGui::DuckyDetectorGui() {
     // builder->get_widget("buttonBox", buttonBox);
 
     // Get the widgets from the UI file
-    builder->get_widget("RubberDuckyDetector", rubberDuckyDetector);
+    builder->get_widget("rubberDuckyDetector", rubberDuckyDetector);
+    builder->get_widget("box", box);
     builder->get_widget("infoBar", infoBar);
     builder->get_widget("infoBarMessage", infoBarMessage);
     builder->get_widget("textView", textView);
@@ -25,7 +26,9 @@ DuckyDetectorGui::DuckyDetectorGui() {
     builder->get_widget("buttonBox", buttonBox);
     builder->get_widget("scrolledWindow", scrolledWindow);
     builder->get_widget("progressBar", progressBar);
-    // builder->get_object("textBuffer", textBuffer);
+    //builder->get_object("textBuffer", textBuffer.operator->());
+
+    textBuffer = Glib::RefPtr<Gtk::TextBuffer>::cast_dynamic(builder->get_object("textBuffer"));
 
     // Connect the signals
     // (*okButton).signal_clicked().connect(sigc::mem_fun(*this, &DuckyDetectorGui::onOkButtonClicked));
@@ -35,8 +38,10 @@ DuckyDetectorGui::DuckyDetectorGui() {
     // Initialize the details dialog
     initDetailsDialog();
 
+    (*rubberDuckyDetector).show_all_children();
+
     // Show the main window
-    show_all();
+    (*rubberDuckyDetector).show_all();
 }
 
 void DuckyDetectorGui::hideInfoBar() {
@@ -44,7 +49,7 @@ void DuckyDetectorGui::hideInfoBar() {
 }
 
 void DuckyDetectorGui::showDetailsDialog(const std::string& details) {
-    (*detailsTextBuffer)->set_text(details);
+    detailsTextBuffer->set_text(details);
     detailsDialog->show_all_children();
     detailsDialog->fullscreen();
     detailsDialog->run();
@@ -80,7 +85,7 @@ void DuckyDetectorGui::setProgress(double progress) {
 }
 
 void DuckyDetectorGui::resetDetailsDialog() {
-    (*detailsTextBuffer)->set_text("");
+    detailsTextBuffer->set_text("");
 }
 
 void DuckyDetectorGui::resetProgressBar() {
@@ -149,11 +154,18 @@ void DuckyDetectorGui::initDetailsDialog() {
     // Initialize the GtkBuilder object
     Glib::RefPtr<Gtk::Builder> builder = Gtk::Builder::create();
 
-    builder->add_from_file("/home/johannes/ducky-detector/src/guiXML/details_dialog.glade");
+    builder->add_from_file("/home/johannes/ducky-detector/src/guiXML/duckyDetector.glade");
 
     // Get the widgets from the details dialog UI file
-    builder->get_widget("details_dialog", detailsDialog);
-    builder->get_widget("details_text_view", detailsTextView);
+    builder->get_widget("detailsDialog", detailsDialog);
+    builder->get_widget("detailsTextView", detailsTextView);
+    builder->get_widget("detailsBox", detailsBox);
+    builder->get_widget("detailsOkButton", detailsOkButton);
+    builder->get_widget("detailsButtonBox", detailsButtonBox);
+    builder->get_widget("detailsScrolledWindow", detailsScrolledWindow);
+
+    detailsTextBuffer = Glib::RefPtr<Gtk::TextBuffer>::cast_dynamic(builder->get_object("detailsTextBuffer"));
+
 
     // Connect the signals
     // detailsDialog->signal_response().connect(sigc::mem_fun(*this, &DuckyDetectorGui::onDetailsDialogResponse));

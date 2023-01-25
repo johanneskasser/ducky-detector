@@ -51,7 +51,7 @@ class DuckyDetectorGui: public Gtk::ApplicationWindow {
         Gtk::Button* detailsOkButton;
         Gtk::ButtonBox* detailsButtonBox;
         Gtk::ScrolledWindow* detailsScrolledWindow;
-        Glib::RefPtr<Gtk::TextBuffer>* detailsTextBuffer;
+        Glib::RefPtr<Gtk::TextBuffer> detailsTextBuffer;
         Gtk::TextView* detailsTextView;
 
         void initMainWindow();

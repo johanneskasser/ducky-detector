@@ -22,7 +22,7 @@ DuckyDetectorGui* DuckyDetectorApplicationGui::createApplicationWindow() {
 void DuckyDetectorApplicationGui::on_activate() {
     applicationWindow = createApplicationWindow();
     applicationWindow->present();
-    applicationWindow->fullscreen();
+    //applicationWindow->fullscreen();
 }
 
 void DuckyDetectorApplicationGui::runApplication() {
