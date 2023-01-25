@@ -15,9 +15,7 @@
   <object class="GtkTextBuffer" id="scannedData">
     <property name="text" translatable="yes">Scanned Data</property>
   </object>
-  <object class="GtkTextBuffer" id="textBuffer">
-    <property name="text" translatable="yes">Hallo</property>
-  </object>
+  <object class="GtkTextBuffer" id="textBuffer"/>
   <object class="GtkApplicationWindow" id="rubberDuckyDetector">
     <property name="name">rubberDuckyDetector</property>
     <property name="width-request">320</property>
@@ -107,19 +105,13 @@
             <property name="name">scrolledWindow</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
-            <property name="margin-start">5</property>
-            <property name="margin-end">5</property>
-            <property name="margin-top">5</property>
-            <property name="margin-bottom">5</property>
             <property name="shadow-type">in</property>
             <child>
               <object class="GtkTextView" id="textView">
                 <property name="name">textView</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
-                <property name="margin-bottom">114</property>
                 <property name="editable">False</property>
-                <property name="cursor-visible">False</property>
                 <property name="buffer">textBuffer</property>
               </object>
             </child>
@@ -385,121 +377,6 @@
             <property name="expand">False</property>
             <property name="fill">True</property>
             <property name="position">3</property>
-          </packing>
-        </child>
-      </object>
-    </child>
-  </object>
-  <object class="GtkDialog" id="detailsDialog2">
-    <property name="name">detailsDialog2</property>
-    <property name="can-focus">False</property>
-    <property name="type-hint">dialog</property>
-    <child internal-child="vbox">
-      <object class="GtkBox">
-        <property name="can-focus">False</property>
-        <property name="orientation">vertical</property>
-        <property name="spacing">2</property>
-        <child internal-child="action_area">
-          <object class="GtkButtonBox">
-            <property name="can-focus">False</property>
-            <property name="layout-style">end</property>
-            <child>
-              <object class="GtkButton" id="backButton">
-                <property name="label">gtk-ok</property>
-                <property name="name">backButton</property>
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="receives-default">True</property>
-                <property name="use-stock">True</property>
-                <property name="always-show-image">True</property>
-              </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <!-- n-columns=2 n-rows=2 -->
-          <object class="GtkGrid">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="row-spacing">10</property>
-            <property name="column-spacing">10</property>
-            <property name="row-homogeneous">True</property>
-            <property name="column-homogeneous">True</property>
-            <child>
-              <object class="GtkTextView" id="virusTypesTextView2">
-                <property name="name">virusTypesTextView2</property>
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="editable">False</property>
-                <property name="justification">center</property>
-                <property name="cursor-visible">False</property>
-                <property name="buffer">virusTypes</property>
-              </object>
-              <packing>
-                <property name="left-attach">0</property>
-                <property name="top-attach">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkTextView" id="scannedDataTextView2">
-                <property name="name">scannedDataTextView2</property>
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="editable">False</property>
-                <property name="justification">center</property>
-                <property name="cursor-visible">False</property>
-                <property name="buffer">scannedData</property>
-              </object>
-              <packing>
-                <property name="left-attach">0</property>
-                <property name="top-attach">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkTextView" id="loadedSignaturesTextView2">
-                <property name="name">loadedSignaturesTextView2</property>
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="editable">False</property>
-                <property name="justification">center</property>
-                <property name="cursor-visible">False</property>
-                <property name="buffer">loadedSignatures</property>
-              </object>
-              <packing>
-                <property name="left-attach">1</property>
-                <property name="top-attach">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkTextView" id="infectedFilesTextView2">
-                <property name="name">infectedFilesTextView2</property>
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="editable">False</property>
-                <property name="justification">center</property>
-                <property name="cursor-visible">False</property>
-                <property name="buffer">infectedFiles</property>
-              </object>
-              <packing>
-                <property name="left-attach">1</property>
-                <property name="top-attach">1</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
           </packing>
         </child>
       </object>

@@ -1,4 +1,6 @@
 #include "DuckyDetectorGui.hpp"
+#include <string> 
+using namespace std;
 
 DuckyDetectorGui::DuckyDetectorGui() {
     Glib::RefPtr<Gtk::Builder> builder = Gtk::Builder::create_from_file("/home/johannes/ducky-detector/src/guiXML/duckyDetector.glade");
@@ -28,7 +30,12 @@ DuckyDetectorGui::DuckyDetectorGui() {
     builder->get_widget("progressBar", progressBar);
     //builder->get_object("textBuffer", textBuffer.operator->());
 
-    textBuffer = Glib::RefPtr<Gtk::TextBuffer>::cast_dynamic(builder->get_object("textBuffer"));
+    //textBuffer = Glib::RefPtr<Gtk::TextBuffer>::cast_dynamic(builder->get_object("textBuffer"));
+
+    textBuffer = Gtk::TextBuffer::create();
+
+    (*textView).set_buffer(textBuffer);
+
 
     // Connect the signals
     // (*okButton).signal_clicked().connect(sigc::mem_fun(*this, &DuckyDetectorGui::onOkButtonClicked));
@@ -94,6 +101,8 @@ void DuckyDetectorGui::resetProgressBar() {
 
 void DuckyDetectorGui::setText(const std::string& text) {
     textBuffer->set_text(text);
+    cout << textBuffer->get_text();
+    textView->queue_draw();
 }
 
 void DuckyDetectorGui::setTextForReset(const std::string& text) {
