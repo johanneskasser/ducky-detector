@@ -60,10 +60,16 @@ void DuckyDetectorGui::showDetailsDialog(const std::string& details) {
         newS.erase(0, index + 1);
         }
 
-        bean1buffer->set_text(substrings[1]);
-        bean2buffer->set_text(substrings[2]);
-        bean3buffer->set_text(substrings[3]);
-        bean4buffer->set_text(substrings[4]);
+        cout << substrings[0];
+        cout << substrings[1];
+        cout << substrings[2];
+        cout << substrings[3];
+
+
+        bean1buffer->set_text(substrings[0]);
+        bean2buffer->set_text(substrings[1]);
+        bean3buffer->set_text(substrings[2]);
+        bean4buffer->set_text(substrings[3]);
 
     }
 
