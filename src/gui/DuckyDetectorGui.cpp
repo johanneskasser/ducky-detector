@@ -60,6 +60,8 @@ void DuckyDetectorGui::showDetailsDialog(const std::string& details) {
         newS.erase(0, index + 1);
         }
 
+        cout << details;
+
         cout << substrings[0];
         cout << substrings[1];
         cout << substrings[2];
