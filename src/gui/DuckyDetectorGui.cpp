@@ -55,23 +55,33 @@ void DuckyDetectorGui::showDetailsDialog(const std::string& details) {
 
     } else {
         while((index = newS.find('\\')) != std::string::npos) {
-        substrings.push_back(newS.substr(0, index));
-        //unsigned long ul = static_cast<unsigned long>(index); 
-        newS.erase(0, index + 2);
+            substrings.push_back(newS.substr(0, index));
+            //unsigned long ul = static_cast<unsigned long>(index); 
+            newS.erase(0, index + 2);
         }
 
-        cout << details;
-
-        cout << substrings[0];
-        cout << substrings[1];
-        cout << substrings[2];
-        cout << substrings[3];
-
-
-        bean1buffer->set_text(substrings[0]);
-        bean2buffer->set_text(substrings[1]);
-        bean3buffer->set_text(substrings[2]);
-        bean4buffer->set_text(substrings[3]);
+        if(substrings.size() >= 4) {
+            bean1buffer->set_text(substrings[0]);
+            bean2buffer->set_text(substrings[1]);
+            bean3buffer->set_text(substrings[2]);
+            bean4buffer->set_text(substrings[3]);
+        } else if (substrings.size() == 3) {
+            bean1buffer->set_text(substrings[0]);
+            bean2buffer->set_text(substrings[1]);
+            bean3buffer->set_text(substrings[2]);
+            bean4buffer->set_text("/");
+        } else if (substrings.size() == 2) {
+            bean1buffer->set_text(substrings[0]);
+            bean2buffer->set_text(substrings[1]);
+            bean3buffer->set_text("/");
+            bean4buffer->set_text("/");
+        } else if (substrings.size() == 1) {
+            bean1buffer->set_text(substrings[0]);
+            bean2buffer->set_text("/");
+            bean3buffer->set_text("/");
+            bean4buffer->set_text("/");
+        }
+        
 
     }
 

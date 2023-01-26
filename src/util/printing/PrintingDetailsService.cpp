@@ -132,40 +132,40 @@ std::string PrintingDetailsService::getPartitionAnalysisDetailsForGui(int partit
         partitionDetails += "Detected Partitions\n " + std::to_string(partitionCounter) + "\\\\";
     }
 
-    partitionDetails += " - Blacklisted file systems and flags \n efi, ext1, ext2, ext3, ext4,\n";
+    partitionDetails += "Blacklisted file systems and flags \n efi, ext1, ext2, ext3, ext4,\n";
     partitionDetails += " boot, bios_grub, hidden, legacy_boot\\\\";
 
     for (int i = 0; i < partitionCounter; i++) {
         if (fileSystems[i] == "efi") {
-            partitionDetails += " - EFI detected! \n USB drive may contain bootable content!\\\\";
+            partitionDetails += "EFI detected! \n USB drive may contain bootable content!\\\\";
             blackListedFileSystemOrFlag = true;
         }
         if (fileSystems[i] == "ext2") {
-            partitionDetails += " - ext2 detected! \n USB drive contains a linux filesystem!\\\\";
+            partitionDetails += "ext2 detected! \n USB drive contains a linux filesystem!\\\\";
             blackListedFileSystemOrFlag = true;
         }
         if (fileSystems[i] == "ext3") {
-            partitionDetails += " - ext3 detected! \n USB drive contains a linux filesystem!\\\\";
+            partitionDetails += "ext3 detected! \n USB drive contains a linux filesystem!\\\\";
             blackListedFileSystemOrFlag = true;
         }
         if (fileSystems[i] == "ext4") {
-            partitionDetails += " - ext4 detected! \n USB drive contains a linux filesystem!\\\\";
+            partitionDetails += "ext4 detected! \n USB drive contains a linux filesystem!\\\\";
             blackListedFileSystemOrFlag = true;
         }
         if (flags[i].find("boot") != std::string::npos) {
-            partitionDetails += " - boot flag detected! \n USB drive may contain bootable content!\\\\";
+            partitionDetails += "boot flag detected! \n USB drive may contain bootable content!\\\\";
             blackListedFileSystemOrFlag = true;
         }
         if (flags[i].find("bios_grub") != std::string::npos) {
-            partitionDetails += " - bios_grub flag detected! \n USB drive may contain bootable content!\\\\";
+            partitionDetails += "bios_grub flag detected! \n USB drive may contain bootable content!\\\\";
             blackListedFileSystemOrFlag = true;
         }
         if (flags[i].find("hidden") != std::string::npos) {
-            partitionDetails += " - hidden flag detected! \n USB drive tries to hide a partition!\\\\";
+            partitionDetails += "hidden flag detected! \n USB drive tries to hide a partition!\\\\";
             blackListedFileSystemOrFlag = true;
         }
         if (flags[i].find("legacy_boot") != std::string::npos) {
-            partitionDetails += " - legacy_boot flag detected! \n USB drive may contain bootable content!\\\\";
+            partitionDetails += "legacy_boot flag detected! \n USB drive may contain bootable content!\\\\";
             blackListedFileSystemOrFlag = true;
         }
     }
@@ -219,6 +219,11 @@ std::string PrintingDetailsService::getVirusAnalysisDetailsForGui(int fileCounte
         std::map<std::string, bool> engineStatus) {
     std::string virusDetails;
 
+    virusDetails += "Scanned Files\n" + std::to_string(fileCounter) + "\\\\";
+    virusDetails += "Loaded Signatures\n" + std::to_string(signature) + "\\\\";
+    virusDetails += "MB scanned\n" + std::to_string(scannedData) + "\\\\";
+    virusDetails += "Infected Files\n" + std::to_string(infectedFilesCounter) + "\\\\";
+
     if (engineStatus.at("isClamAvInitialized")) {
         virusDetails += " - Clam Av Library initialisation successful.\n";
     } else {
@@ -242,11 +247,6 @@ std::string PrintingDetailsService::getVirusAnalysisDetailsForGui(int fileCounte
     } else {
         virusDetails += " - Engine compilation failed.\n";
     }
-
-    virusDetails += "Scanned Files\n" + std::to_string(fileCounter) + "\\\\";
-    virusDetails += "Loaded Signatures\n" + std::to_string(signature) + "\\\\";
-    virusDetails += "MB scanned" + std::to_string(scannedData) + "\\\\";
-    virusDetails += "Infected Files" + std::to_string(infectedFilesCounter) + "\\\\";
 
     if (infectedFilesCounter > 0) {
         virusDetails += " - Following viruses were detected:\n";
