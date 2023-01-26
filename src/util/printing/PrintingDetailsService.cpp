@@ -11,17 +11,17 @@ std::string PrintingDetailsService::printDeviceInfos(Device& device) {
     std::string deviceInfo;
 
     if (device.getInitializationStatus()) {
-            deviceInfo += " - Vendor: " + device.getVendorName(device.getIdVendor()) + "\n";
-            deviceInfo += " - IDVendor (Dec/Hex): " + std::to_string(device.getIdVendor()) + " / " + device.getIdVendorAsHex() + "\n";
+            deviceInfo += " - Vendor\n" + device.getVendorName(device.getIdVendor()) + "\\";
+            deviceInfo += " - IDVendor (Dec/Hex)\n" + std::to_string(device.getIdVendor()) + " / " + device.getIdVendorAsHex() + "\\";
+            deviceInfo += " - bNumInterfaces\n" + std::to_string(device.getbNumInterfaces()) + "\\";
+            deviceInfo += " - Device Class\n" + std::to_string(device.getbDeviceClass()) + "\\";
             deviceInfo += " - Product: " + device.getProductName(device.getIdVendor(), device.getIdProduct()) + "\n";
             deviceInfo += " - IDProduct (Dec/Hex): " + std::to_string(device.getIdProduct()) + " / " + device.getIdProductAsHex() + "\n";
-            deviceInfo += " - Device Class: " + std::to_string(device.getbDeviceClass()) + "\n";
             deviceInfo += " - DeviceSubClass: " + std::to_string(device.getbDeviceSubClass()) + "\n";
             deviceInfo += " - Device Protocol: " + std::to_string(device.getbDeviceProtocol()) + "\n";
-            deviceInfo += " - bNumConfigurations: " + std::to_string(device.getbNumConfigurations()) + "\n";
+            deviceInfo += " - bNumConfiguration: " + std::to_string(device.getbNumConfigurations()) + "\n";
             deviceInfo += " - Auth Status: " + std::to_string(device.getDeviceAuthorizationStatus()) + "\n";
             deviceInfo += " - path: " + device.getDevicePath() + "\n";
-            deviceInfo += " - bNumInterfaces: " + std::to_string(device.getbNumInterfaces()) + "\n";
 
             int interfaces[device.getbNumInterfaces()];
             int *ifaces = device.getbNumInterfaceClasses(interfaces);

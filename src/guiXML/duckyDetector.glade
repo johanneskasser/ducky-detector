@@ -2,6 +2,11 @@
 <!-- Generated with glade 3.38.2 -->
 <interface>
   <requires lib="gtk+" version="3.24"/>
+  <object class="GtkTextBuffer" id="bean1buffer"/>
+  <object class="GtkTextBuffer" id="bean2buffer"/>
+  <object class="GtkTextBuffer" id="bean3buffer"/>
+  <object class="GtkTextBuffer" id="bean4buffer"/>
+  <object class="GtkTextBuffer" id="detailsTextBuffer"/>
   <object class="GtkMessageDialog" id="detailsDialog">
     <property name="name">detailsDialog</property>
     <property name="width-request">320</property>
@@ -69,7 +74,8 @@
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="position">0</property>
+            <property name="pack-type">end</property>
+            <property name="position">-1</property>
           </packing>
         </child>
         <child>
@@ -88,14 +94,14 @@
                 <property name="can-focus">True</property>
                 <property name="shadow-type">in</property>
                 <child>
-                  <object class="GtkTextView" id="scannedDataTextView">
+                  <object class="GtkTextView" id="bean1">
                     <property name="name">scannedDataTextView</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="editable">False</property>
                     <property name="justification">center</property>
                     <property name="cursor-visible">False</property>
-                    <property name="buffer">scannedData</property>
+                    <property name="buffer">bean1buffer</property>
                   </object>
                 </child>
               </object>
@@ -110,14 +116,14 @@
                 <property name="can-focus">True</property>
                 <property name="shadow-type">in</property>
                 <child>
-                  <object class="GtkTextView" id="infectedFilesTextView">
+                  <object class="GtkTextView" id="bean4">
                     <property name="name">infectedFilesTextView</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="editable">False</property>
                     <property name="justification">center</property>
                     <property name="cursor-visible">False</property>
-                    <property name="buffer">infectedFiles</property>
+                    <property name="buffer">bean4buffer</property>
                   </object>
                 </child>
               </object>
@@ -132,14 +138,14 @@
                 <property name="can-focus">True</property>
                 <property name="shadow-type">in</property>
                 <child>
-                  <object class="GtkTextView" id="loadedSignaturesTextView">
+                  <object class="GtkTextView" id="bean2">
                     <property name="name">loadedSignaturesTextView</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="editable">False</property>
                     <property name="justification">center</property>
                     <property name="cursor-visible">False</property>
-                    <property name="buffer">loadedSignatures</property>
+                    <property name="buffer">bean2buffer</property>
                   </object>
                 </child>
               </object>
@@ -154,14 +160,14 @@
                 <property name="can-focus">True</property>
                 <property name="shadow-type">in</property>
                 <child>
-                  <object class="GtkTextView" id="virusTypesTextView">
+                  <object class="GtkTextView" id="bean3">
                     <property name="name">virusTypesTextView</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="editable">False</property>
                     <property name="justification">center</property>
                     <property name="cursor-visible">False</property>
-                    <property name="buffer">virusTypes</property>
+                    <property name="buffer">bean3buffer</property>
                   </object>
                 </child>
               </object>
@@ -180,16 +186,10 @@
       </object>
     </child>
   </object>
-  <object class="GtkTextBuffer" id="detailsTextBuffer"/>
   <object class="GtkTextBuffer" id="haha">
     <property name="text" translatable="yes">Info Bar btw</property>
   </object>
-  <object class="GtkTextBuffer" id="infectedFiles">
-    <property name="text" translatable="yes">Infected Files</property>
-  </object>
-  <object class="GtkTextBuffer" id="loadedSignatures">
-    <property name="text" translatable="yes">Loaded Signatures</property>
-  </object>
+  <object class="GtkTextBuffer" id="textBuffer"/>
   <object class="GtkApplicationWindow" id="rubberDuckyDetector">
     <property name="name">rubberDuckyDetector</property>
     <property name="width-request">320</property>
@@ -221,6 +221,7 @@
                 <property name="ypad">15</property>
                 <attributes>
                   <attribute name="weight" value="bold"/>
+                  <attribute name="scale" value="2"/>
                 </attributes>
               </object>
               <packing>
@@ -242,7 +243,7 @@
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="shadow-type">in</property>
-            <property name="min-content-height">100</property>
+            <property name="min-content-height">300</property>
             <child>
               <object class="GtkTextView" id="textView">
                 <property name="name">textView</property>
@@ -284,11 +285,13 @@
         <child>
           <object class="GtkButtonBox" id="buttonBox">
             <property name="name">buttonBox</property>
+            <property name="width-request">1</property>
+            <property name="height-request">90</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="border-width">5</property>
-            <property name="spacing">5</property>
-            <property name="layout-style">center</property>
+            <property name="spacing">30</property>
+            <property name="layout-style">spread</property>
             <child>
               <object class="GtkButton" id="okButton">
                 <property name="label" translatable="yes">OK</property>
@@ -340,12 +343,5 @@
         </child>
       </object>
     </child>
-  </object>
-  <object class="GtkTextBuffer" id="scannedData">
-    <property name="text" translatable="yes">Scanned Data</property>
-  </object>
-  <object class="GtkTextBuffer" id="textBuffer"/>
-  <object class="GtkTextBuffer" id="virusTypes">
-    <property name="text" translatable="yes">Virus Types</property>
   </object>
 </interface>
