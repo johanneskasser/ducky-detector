@@ -3,7 +3,7 @@
 using namespace std;
 
 DuckyDetectorGui::DuckyDetectorGui() {
-    Glib::RefPtr<Gtk::Builder> builder = Gtk::Builder::create_from_file("/home/johannes/ducky-detector/src/guiXML/duckyDetector.glade");
+    Glib::RefPtr<Gtk::Builder> builder = Gtk::Builder::create_from_file("src/guiXML/duckyDetector.glade");
 
 
     // Initialize the GtkBuilder object
@@ -175,14 +175,10 @@ void DuckyDetectorGui::initDetailsDialog() {
 
     detailsTextBuffer = Glib::RefPtr<Gtk::TextBuffer>::cast_dynamic(builder->get_object("detailsTextBuffer"));
 
+    detailsDialog->signal_hide().connect(sigc::mem_fun(*this, &DuckyDetectorGui::resetDetailsDialog));
 
-    // Connect the signals
-    // detailsDialog->signal_response().connect(sigc::mem_fun(*this, &DuckyDetectorGui::onDetailsDialogResponse));
+    detailsOkButton->signal_clicked().connect(sigc::mem_fun(*detailsDialog, &Gtk::Window::hide));
 }
-/*
-Gtk::ApplicationWindow* DuckyDetectorGui::getApplicationWindow() {
-    return rubberDuckyDetector;
-}*/
 
 DuckyDetectorGui::~DuckyDetectorGui() {
     delete detailsDialog;

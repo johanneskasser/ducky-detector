@@ -2,6 +2,9 @@
 <!-- Generated with glade 3.38.2 -->
 <interface>
   <requires lib="gtk+" version="3.24"/>
+  <object class="GtkTextBuffer" id="currentModuleName">
+    <property name="text" translatable="yes">as</property>
+  </object>
   <object class="GtkTextBuffer" id="detailsTextBuffer"/>
   <object class="GtkTextBuffer" id="haha">
     <property name="text" translatable="yes">Info Bar btw</property>
@@ -81,11 +84,10 @@
                 <property name="name">infoBarMessage</property>
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
+                <property name="xpad">10</property>
+                <property name="ypad">10</property>
                 <property name="label" translatable="yes">InfoBar Text goes here</property>
                 <property name="justify">center</property>
-                <attributes>
-                  <attribute name="background" value="#2626a2a26969"/>
-                </attributes>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -106,6 +108,7 @@
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="shadow-type">in</property>
+            <property name="min-content-height">100</property>
             <child>
               <object class="GtkTextView" id="textView">
                 <property name="name">textView</property>
