@@ -57,7 +57,7 @@ void DuckyDetectorGui::showDetailsDialog(const std::string& details) {
         while((index = newS.find('\\')) != std::string::npos) {
         substrings.push_back(newS.substr(0, index));
         //unsigned long ul = static_cast<unsigned long>(index); 
-        newS.erase(0, index + 1);
+        newS.erase(0, index + 2);
         }
 
         cout << details;
