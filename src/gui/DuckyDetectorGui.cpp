@@ -47,7 +47,7 @@ void DuckyDetectorGui::showDetailsDialog(const std::string& details) {
     std::vector<std::string> substrings;
     std::size_t index = 0;
     std::string newS = details;
-    if(newS.find('\\' == std::string::npos)) {
+    if(newS.find('\\') == std::string::npos) {
         bean1buffer->set_text("/");
         bean2buffer->set_text("/");
         bean3buffer->set_text("/");
