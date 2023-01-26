@@ -11,10 +11,10 @@ std::string PrintingDetailsService::printDeviceInfos(Device& device) {
     std::string deviceInfo;
 
     if (device.getInitializationStatus()) {
-            deviceInfo += " - Vendor\n" + device.getVendorName(device.getIdVendor()) + "\\";
-            deviceInfo += " - IDVendor (Dec/Hex)\n" + std::to_string(device.getIdVendor()) + " / " + device.getIdVendorAsHex() + "\\";
-            deviceInfo += " - bNumInterfaces\n" + std::to_string(device.getbNumInterfaces()) + "\\";
-            deviceInfo += " - Device Class\n" + std::to_string(device.getbDeviceClass()) + "\\";
+            deviceInfo += "Vendor\n" + device.getVendorName(device.getIdVendor()) + "\\\\";
+            deviceInfo += "IDVendor (Dec/Hex)\n" + std::to_string(device.getIdVendor()) + " / " + device.getIdVendorAsHex() + "\\\\";
+            deviceInfo += "bNumInterfaces\n" + std::to_string(device.getbNumInterfaces()) + "\\\\";
+            deviceInfo += "Device Class\n" + std::to_string(device.getbDeviceClass()) + "\\\\";
             deviceInfo += " - Product: " + device.getProductName(device.getIdVendor(), device.getIdProduct()) + "\n";
             deviceInfo += " - IDProduct (Dec/Hex): " + std::to_string(device.getIdProduct()) + " / " + device.getIdProductAsHex() + "\n";
             deviceInfo += " - DeviceSubClass: " + std::to_string(device.getbDeviceSubClass()) + "\n";
