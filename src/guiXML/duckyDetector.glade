@@ -2,212 +2,6 @@
 <!-- Generated with glade 3.38.2 -->
 <interface>
   <requires lib="gtk+" version="3.24"/>
-  <object class="GtkTextBuffer" id="currentModuleName">
-    <property name="text" translatable="yes">as</property>
-  </object>
-  <object class="GtkTextBuffer" id="detailsTextBuffer"/>
-  <object class="GtkTextBuffer" id="haha">
-    <property name="text" translatable="yes">Info Bar btw</property>
-  </object>
-  <object class="GtkTextBuffer" id="infectedFiles">
-    <property name="text" translatable="yes">Infected Files</property>
-  </object>
-  <object class="GtkTextBuffer" id="loadedSignatures">
-    <property name="text" translatable="yes">Loaded Signatures</property>
-  </object>
-  <object class="GtkTextBuffer" id="scannedData">
-    <property name="text" translatable="yes">Scanned Data</property>
-  </object>
-  <object class="GtkTextBuffer" id="textBuffer"/>
-  <object class="GtkApplicationWindow" id="rubberDuckyDetector">
-    <property name="name">rubberDuckyDetector</property>
-    <property name="width-request">320</property>
-    <property name="height-request">240</property>
-    <property name="can-focus">False</property>
-    <property name="border-width">5</property>
-    <property name="window-position">center</property>
-    <child>
-      <object class="GtkBox" id="box">
-        <property name="name">Main Window</property>
-        <property name="visible">True</property>
-        <property name="can-focus">False</property>
-        <property name="orientation">vertical</property>
-        <child>
-          <object class="GtkInfoBar" id="infoBar">
-            <property name="name">infoBar</property>
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="revealed">False</property>
-            <child internal-child="action_area">
-              <object class="GtkButtonBox">
-                <property name="can-focus">False</property>
-                <property name="spacing">6</property>
-                <property name="layout-style">end</property>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <child internal-child="content_area">
-              <object class="GtkBox">
-                <property name="can-focus">False</property>
-                <property name="spacing">16</property>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="infoBarMessage">
-                <property name="name">infoBarMessage</property>
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="xpad">10</property>
-                <property name="ypad">10</property>
-                <property name="label" translatable="yes">InfoBar Text goes here</property>
-                <property name="justify">center</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkScrolledWindow" id="scrolledWindow">
-            <property name="name">scrolledWindow</property>
-            <property name="visible">True</property>
-            <property name="can-focus">True</property>
-            <property name="shadow-type">in</property>
-            <property name="min-content-height">100</property>
-            <child>
-              <object class="GtkTextView" id="textView">
-                <property name="name">textView</property>
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="editable">False</property>
-                <property name="buffer">textBuffer</property>
-              </object>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkProgressBar" id="progressBar">
-            <property name="name">progressBar</property>
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="halign">center</property>
-            <property name="valign">center</property>
-            <property name="margin-start">5</property>
-            <property name="margin-end">5</property>
-            <property name="margin-top">5</property>
-            <property name="margin-bottom">5</property>
-            <property name="text" translatable="yes">Analysing Process</property>
-            <property name="show-text">True</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">2</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkButtonBox" id="buttonBox">
-            <property name="name">buttonBox</property>
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="border-width">5</property>
-            <property name="spacing">5</property>
-            <property name="layout-style">center</property>
-            <child>
-              <object class="GtkButton" id="okButton">
-                <property name="label" translatable="yes">OK</property>
-                <property name="name">okButton</property>
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="receives-default">True</property>
-              </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="detailsButton">
-                <property name="label" translatable="yes">Details</property>
-                <property name="name">detailsButton</property>
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="receives-default">True</property>
-              </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="cancelButton">
-                <property name="label" translatable="yes">Cancel</property>
-                <property name="name">cancelButton</property>
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="receives-default">True</property>
-              </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="position">2</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">3</property>
-          </packing>
-        </child>
-      </object>
-    </child>
-  </object>
-  <object class="GtkTextBuffer" id="virusTypes">
-    <property name="text" translatable="yes">Virus Types</property>
-  </object>
   <object class="GtkMessageDialog" id="detailsDialog">
     <property name="name">detailsDialog</property>
     <property name="width-request">320</property>
@@ -225,11 +19,12 @@
           <object class="GtkButtonBox" id="detailsButtonBox">
             <property name="name">detailsButtonBox</property>
             <property name="can-focus">False</property>
+            <property name="margin-left">5</property>
+            <property name="margin-right">5</property>
             <property name="margin-start">5</property>
             <property name="margin-end">5</property>
             <property name="margin-top">5</property>
             <property name="margin-bottom">5</property>
-            <property name="homogeneous">True</property>
             <property name="layout-style">end</property>
             <child>
               <object class="GtkButton" id="detailsOkButton">
@@ -384,5 +179,173 @@
         </child>
       </object>
     </child>
+  </object>
+  <object class="GtkTextBuffer" id="detailsTextBuffer"/>
+  <object class="GtkTextBuffer" id="haha">
+    <property name="text" translatable="yes">Info Bar btw</property>
+  </object>
+  <object class="GtkTextBuffer" id="infectedFiles">
+    <property name="text" translatable="yes">Infected Files</property>
+  </object>
+  <object class="GtkTextBuffer" id="loadedSignatures">
+    <property name="text" translatable="yes">Loaded Signatures</property>
+  </object>
+  <object class="GtkApplicationWindow" id="rubberDuckyDetector">
+    <property name="name">rubberDuckyDetector</property>
+    <property name="width-request">320</property>
+    <property name="height-request">240</property>
+    <property name="can-focus">False</property>
+    <property name="border-width">5</property>
+    <property name="window-position">center</property>
+    <child>
+      <object class="GtkBox" id="box">
+        <property name="name">Main Window</property>
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkBox" id="moduleNameBox">
+            <property name="height-request">50</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="margin-left">5</property>
+            <property name="margin-right">5</property>
+            <property name="margin-top">5</property>
+            <property name="margin-bottom">5</property>
+            <property name="orientation">vertical</property>
+            <child>
+              <object class="GtkLabel" id="currentModuleName">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="xpad">15</property>
+                <property name="ypad">15</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkScrolledWindow" id="scrolledWindow">
+            <property name="name">scrolledWindow</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="shadow-type">in</property>
+            <property name="min-content-height">100</property>
+            <child>
+              <object class="GtkTextView" id="textView">
+                <property name="name">textView</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="editable">False</property>
+                <property name="buffer">textBuffer</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkProgressBar" id="progressBar">
+            <property name="name">progressBar</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="halign">center</property>
+            <property name="valign">center</property>
+            <property name="margin-left">5</property>
+            <property name="margin-right">5</property>
+            <property name="margin-start">5</property>
+            <property name="margin-end">5</property>
+            <property name="margin-top">5</property>
+            <property name="margin-bottom">5</property>
+            <property name="text" translatable="yes">Analysing Process</property>
+            <property name="show-text">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButtonBox" id="buttonBox">
+            <property name="name">buttonBox</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="border-width">5</property>
+            <property name="spacing">5</property>
+            <property name="layout-style">center</property>
+            <child>
+              <object class="GtkButton" id="okButton">
+                <property name="label" translatable="yes">OK</property>
+                <property name="name">okButton</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="detailsButton">
+                <property name="label" translatable="yes">Details</property>
+                <property name="name">detailsButton</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="cancelButton">
+                <property name="label" translatable="yes">Cancel</property>
+                <property name="name">cancelButton</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">3</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkTextBuffer" id="scannedData">
+    <property name="text" translatable="yes">Scanned Data</property>
+  </object>
+  <object class="GtkTextBuffer" id="textBuffer"/>
+  <object class="GtkTextBuffer" id="virusTypes">
+    <property name="text" translatable="yes">Virus Types</property>
   </object>
 </interface>

@@ -16,7 +16,6 @@
 class DuckyDetectorGui: public Gtk::ApplicationWindow {
     public:
         Gtk::Button *okButton, *cancelButton, *detailsButton;
-        // Gtk::Builder builder = Gtk::Builder::Builder();
         Gtk::ApplicationWindow* rubberDuckyDetector;
     
 
@@ -34,14 +33,16 @@ class DuckyDetectorGui: public Gtk::ApplicationWindow {
         void resetDetailsDialog();
         void setText(const std::string& text);
         void setTextForReset(const std::string& text);
+        void setModuleName(const std::string& moduleName);
+        void resetModuleNameBackground();
         //Gtk::ApplicationWindow* getApplicationWindow();
 
     private:
         std::string title = "Rubber Ducky Detector";
         Gtk::Box* box;
         Gtk::ButtonBox* buttonBox;
-        Gtk::InfoBar* infoBar;
-        Gtk::Label* infoBarMessage;
+        //Gtk::InfoBar* infoBar;
+        //Gtk::Label* infoBarMessage;
         Gtk::ProgressBar* progressBar;
         Gtk::ScrolledWindow* scrolledWindow;
         Glib::RefPtr<Gtk::TextBuffer> textBuffer;
@@ -53,6 +54,8 @@ class DuckyDetectorGui: public Gtk::ApplicationWindow {
         Gtk::ScrolledWindow* detailsScrolledWindow;
         Glib::RefPtr<Gtk::TextBuffer> detailsTextBuffer;
         Gtk::TextView* detailsTextView;
+        Gtk::Label* currentModuleName;
+        Gtk::Box* moduleNameBox;
 
         void initMainWindow();
         void initDetailsDialog();

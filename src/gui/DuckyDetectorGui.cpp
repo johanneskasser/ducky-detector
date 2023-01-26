@@ -19,8 +19,8 @@ DuckyDetectorGui::DuckyDetectorGui() {
     // Get the widgets from the UI file
     builder->get_widget("rubberDuckyDetector", rubberDuckyDetector);
     builder->get_widget("box", box);
-    builder->get_widget("infoBar", infoBar);
-    builder->get_widget("infoBarMessage", infoBarMessage);
+    //builder->get_widget("infoBar", infoBar);
+    //builder->get_widget("infoBarMessage", infoBarMessage);
     builder->get_widget("textView", textView);
     builder->get_widget("okButton", okButton);
     builder->get_widget("detailsButton", detailsButton);
@@ -28,6 +28,8 @@ DuckyDetectorGui::DuckyDetectorGui() {
     builder->get_widget("buttonBox", buttonBox);
     builder->get_widget("scrolledWindow", scrolledWindow);
     builder->get_widget("progressBar", progressBar);
+    builder->get_widget("currentModuleName", currentModuleName);
+    builder->get_widget("moduleNameBox", moduleNameBox);
     //builder->get_object("textBuffer", textBuffer.operator->());
 
     //textBuffer = Glib::RefPtr<Gtk::TextBuffer>::cast_dynamic(builder->get_object("textBuffer"));
@@ -49,11 +51,13 @@ DuckyDetectorGui::DuckyDetectorGui() {
 
     // Show the main window
     (*rubberDuckyDetector).show_all();
-}
 
+    (*currentModuleName).set_text("Rubber Ducky Detector");
+}
+/*
 void DuckyDetectorGui::hideInfoBar() {
     (*infoBar).hide();
-}
+}*/
 
 void DuckyDetectorGui::showDetailsDialog(const std::string& details) {
     detailsTextBuffer->set_text(details);
@@ -63,15 +67,19 @@ void DuckyDetectorGui::showDetailsDialog(const std::string& details) {
 }
 
 void DuckyDetectorGui::showError(const std::string& text) {
-    (*infoBarMessage).set_text(text);
-    (*infoBar).set_message_type(Gtk::MESSAGE_ERROR);
-    (*infoBar).show();
+    Gdk::RGBA color;
+    color.set_rgba(1.0, 0.0, 0.0, 1.0);
+    (*moduleNameBox).override_background_color(color);
 }
 
 void DuckyDetectorGui::showSuccess(const std::string& text) {
-    (*infoBarMessage).set_text(text);
-    (*infoBar).set_message_type(Gtk::MESSAGE_INFO);
-    (*infoBar).show();
+    Gdk::RGBA color;
+    color.set_rgba(0.0, 1.0, 0.0, 1.0);
+    (*moduleNameBox).override_background_color(color);
+}
+
+void DuckyDetectorGui::setModuleName(const std::string& moduleName) {
+    (*currentModuleName).set_text(moduleName);
 }
 
 void DuckyDetectorGui::showInfoDialog() {
@@ -163,7 +171,7 @@ void DuckyDetectorGui::initDetailsDialog() {
     // Initialize the GtkBuilder object
     Glib::RefPtr<Gtk::Builder> builder = Gtk::Builder::create();
 
-    builder->add_from_file("/home/johannes/ducky-detector/src/guiXML/duckyDetector.glade");
+    builder->add_from_file("src/guiXML/duckyDetector.glade");
 
     // Get the widgets from the details dialog UI file
     builder->get_widget("detailsDialog", detailsDialog);
@@ -178,6 +186,10 @@ void DuckyDetectorGui::initDetailsDialog() {
     detailsDialog->signal_hide().connect(sigc::mem_fun(*this, &DuckyDetectorGui::resetDetailsDialog));
 
     detailsOkButton->signal_clicked().connect(sigc::mem_fun(*detailsDialog, &Gtk::Window::hide));
+}
+
+void DuckyDetectorGui::resetModuleNameBackground() {
+    (*moduleNameBox).unset_background_color();
 }
 
 DuckyDetectorGui::~DuckyDetectorGui() {
