@@ -42,6 +42,8 @@ void DuckyDetectorApplicationGui::runApplication() {
 }
 
 void DuckyDetectorApplicationGui::onStartScanProcessAndCheckSystemRequirements() {
+    applicationWindow->setModuleName("Start Process and Check System Requirements");
+
     detailsButtonSignalConnection = applicationWindow->detailsButton->signal_clicked().connect(sigc::mem_fun(*this,
         &DuckyDetectorApplicationGui::onPreparationDetails));
 
@@ -60,6 +62,8 @@ void DuckyDetectorApplicationGui::onStartScanProcessAndCheckSystemRequirements()
 }
 
 void DuckyDetectorApplicationGui::onUsbPreCheck() {
+    applicationWindow->setModuleName("USB Pre-Check");
+
     detailsButtonSignalConnection.disconnect();
     detailsButtonSignalConnection = applicationWindow->detailsButton->signal_clicked().connect(sigc::mem_fun(*this,
         &DuckyDetectorApplicationGui::onUsbPreCheckDetails));
@@ -75,6 +79,8 @@ void DuckyDetectorApplicationGui::onUsbPreCheck() {
 }
 
 void DuckyDetectorApplicationGui::onInitialPeripheryAnalysis() {
+    applicationWindow->setModuleName("Initial Pheriphery Analysis");
+
     int result;
 
     detailsButtonSignalConnection.disconnect();
@@ -95,6 +101,8 @@ void DuckyDetectorApplicationGui::onInitialPeripheryAnalysis() {
 }
 
 void DuckyDetectorApplicationGui::onSecondPeripheryAnalysis() {
+    applicationWindow->setModuleName("Second Pheriphery Analysis");
+
     int result;
 
     result = scanner.startPeripheryAnalysis(false);
@@ -116,6 +124,8 @@ void DuckyDetectorApplicationGui::onSecondPeripheryAnalysis() {
 }
 
 void DuckyDetectorApplicationGui::onStartPartitionAnalysis() {
+    applicationWindow->setModuleName("Partition Analysis");
+
     int result;
 
     detailsButtonSignalConnection.disconnect();
@@ -140,6 +150,8 @@ void DuckyDetectorApplicationGui::onStartPartitionAnalysis() {
 }
 
 void DuckyDetectorApplicationGui::onStartFileExtensionAnalysis() {
+    applicationWindow->setModuleName("File Extension Analysis");
+
     int result;
 
     detailsButtonSignalConnection.disconnect();
@@ -164,6 +176,8 @@ void DuckyDetectorApplicationGui::onStartFileExtensionAnalysis() {
 }
 
 void DuckyDetectorApplicationGui::onStartMalwareAnalysis() {
+    applicationWindow->setModuleName("Malware Analysis");
+
     int result;
 
     detailsButtonSignalConnection.disconnect();
@@ -247,6 +261,8 @@ DuckyDetectorApplicationGui::~DuckyDetectorApplicationGui() {
 }
 
 void DuckyDetectorApplicationGui::resetWindow() {
-    applicationWindow->hideInfoBar();
+    applicationWindow->setModuleName("Rubber Ducky Detector");
+    applicationWindow->resetModuleNameBackground();
+    //applicationWindow->hideInfoBar();
     applicationWindow->resetProgressBar();
 }

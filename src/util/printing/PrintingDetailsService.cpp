@@ -11,17 +11,17 @@ std::string PrintingDetailsService::printDeviceInfos(Device& device) {
     std::string deviceInfo;
 
     if (device.getInitializationStatus()) {
-            deviceInfo += " - Vendor: " + device.getVendorName(device.getIdVendor()) + "\n";
-            deviceInfo += " - IDVendor (Dec/Hex): " + std::to_string(device.getIdVendor()) + " / " + device.getIdVendorAsHex() + "\n";
+            deviceInfo += "Vendor\n" + device.getVendorName(device.getIdVendor()) + "\\\\";
+            deviceInfo += "IDVendor (Dec/Hex)\n" + std::to_string(device.getIdVendor()) + " / " + device.getIdVendorAsHex() + "\\\\";
+            deviceInfo += "bNumInterfaces\n" + std::to_string(device.getbNumInterfaces()) + "\\\\";
+            deviceInfo += "Device Class\n" + std::to_string(device.getbDeviceClass()) + "\\\\";
             deviceInfo += " - Product: " + device.getProductName(device.getIdVendor(), device.getIdProduct()) + "\n";
             deviceInfo += " - IDProduct (Dec/Hex): " + std::to_string(device.getIdProduct()) + " / " + device.getIdProductAsHex() + "\n";
-            deviceInfo += " - Device Class: " + std::to_string(device.getbDeviceClass()) + "\n";
             deviceInfo += " - DeviceSubClass: " + std::to_string(device.getbDeviceSubClass()) + "\n";
             deviceInfo += " - Device Protocol: " + std::to_string(device.getbDeviceProtocol()) + "\n";
-            deviceInfo += " - bNumConfigurations: " + std::to_string(device.getbNumConfigurations()) + "\n";
+            deviceInfo += " - bNumConfiguration: " + std::to_string(device.getbNumConfigurations()) + "\n";
             deviceInfo += " - Auth Status: " + std::to_string(device.getDeviceAuthorizationStatus()) + "\n";
             deviceInfo += " - path: " + device.getDevicePath() + "\n";
-            deviceInfo += " - bNumInterfaces: " + std::to_string(device.getbNumInterfaces()) + "\n";
 
             int interfaces[device.getbNumInterfaces()];
             int *ifaces = device.getbNumInterfaceClasses(interfaces);
@@ -42,21 +42,21 @@ std::string PrintingDetailsService::getPreparationDetailsForGui(const std::map<s
     std::string preparationDetails;
 
     if (preparationAnalysisDetails.at("modProbeDisabled")) {
-        preparationDetails += " - drivers_autoprobe is disabled.";
+        preparationDetails += "Drivers_autoprobe \n disabled \\\\";
     } else {
-        preparationDetails += " - drivers_autoprobe is enabled.";
+        preparationDetails += "Drivers_autoprobe \n enabled \\\\";
     }
 
     if (preparationAnalysisDetails.at("defaultAuthDisabled")) {
-        preparationDetails += " - authorized_default is disabled.";
+        preparationDetails += "Authorized_default \n disabled \\\\";
     } else {
-        preparationDetails += " - authorized_default is enabled.";
+        preparationDetails += "authorized_default \n enabled \\\\";
     }
 
     if (preparationAnalysisDetails.at("defaultInterfaceAuthDisabled")) {
-        preparationDetails += " - interface_authorized_default is disabled.";
+        preparationDetails += "interface_authorized_default \n disabled \\\\";
     } else {
-        preparationDetails += " - interface_authorized_default is enabled.";
+        preparationDetails += "interface_authorized_default \n enabled \\\\";
     }
 
     return preparationDetails;
@@ -127,51 +127,51 @@ std::string PrintingDetailsService::getPartitionAnalysisDetailsForGui(int partit
     std::string partitionDetails;
 
     if (partitionCounter > 1) {
-        partitionDetails += " - " + std::to_string(partitionCounter) + " partition/s detected. (Only one expected.)\n";
+        partitionDetails += "Detected Partitions\n " + std::to_string(partitionCounter) + "\\\\";
     } else {
-        partitionDetails += " - " + std::to_string(partitionCounter) + " partition detected. \n";
+        partitionDetails += "Detected Partitions\n " + std::to_string(partitionCounter) + "\\\\";
     }
 
-    partitionDetails += " - Blacklisted file systems and flags: efi, ext1, ext2, ext3, ext4,\n";
-    partitionDetails += " boot, bios_grub, hidden, legacy_boot\n";
+    partitionDetails += "Blacklisted file systems and flags \n efi, ext1, ext2, ext3, ext4,\n";
+    partitionDetails += " boot, bios_grub, hidden, legacy_boot\\\\";
 
     for (int i = 0; i < partitionCounter; i++) {
         if (fileSystems[i] == "efi") {
-            partitionDetails += " - EFI detected! --> USB drive may contain bootable content!\n";
+            partitionDetails += "EFI detected! \n USB drive may contain bootable content!\\\\";
             blackListedFileSystemOrFlag = true;
         }
         if (fileSystems[i] == "ext2") {
-            partitionDetails += " - ext2 detected! --> USB drive contains a linux filesystem!\n";
+            partitionDetails += "ext2 detected! \n USB drive contains a linux filesystem!\\\\";
             blackListedFileSystemOrFlag = true;
         }
         if (fileSystems[i] == "ext3") {
-            partitionDetails += " - ext3 detected! --> USB drive contains a linux filesystem!\n";
+            partitionDetails += "ext3 detected! \n USB drive contains a linux filesystem!\\\\";
             blackListedFileSystemOrFlag = true;
         }
         if (fileSystems[i] == "ext4") {
-            partitionDetails += " - ext4 detected! --> USB drive contains a linux filesystem!\n";
+            partitionDetails += "ext4 detected! \n USB drive contains a linux filesystem!\\\\";
             blackListedFileSystemOrFlag = true;
         }
         if (flags[i].find("boot") != std::string::npos) {
-            partitionDetails += " - boot flag detected! --> USB drive may contain bootable content!\n";
+            partitionDetails += "boot flag detected! \n USB drive may contain bootable content!\\\\";
             blackListedFileSystemOrFlag = true;
         }
         if (flags[i].find("bios_grub") != std::string::npos) {
-            partitionDetails += " - bios_grub flag detected! --> USB drive may contain bootable content!\n";
+            partitionDetails += "bios_grub flag detected! \n USB drive may contain bootable content!\\\\";
             blackListedFileSystemOrFlag = true;
         }
         if (flags[i].find("hidden") != std::string::npos) {
-            partitionDetails += " - hidden flag detected! --> USB drive tries to hide a partition!\n";
+            partitionDetails += "hidden flag detected! \n USB drive tries to hide a partition!\\\\";
             blackListedFileSystemOrFlag = true;
         }
         if (flags[i].find("legacy_boot") != std::string::npos) {
-            partitionDetails += " - legacy_boot flag detected! --> USB drive may contain bootable content!\n";
+            partitionDetails += "legacy_boot flag detected! \n USB drive may contain bootable content!\\\\";
             blackListedFileSystemOrFlag = true;
         }
     }
 
     if (!blackListedFileSystemOrFlag) {
-        partitionDetails += " - No black listed file system or flags detected.";
+        partitionDetails += "Black listed file system or flags \n no \\\\";
     }
 
     return partitionDetails;
@@ -187,7 +187,7 @@ void PrintingDetailsService::printPartitionAnalysisDetailsForTerminal(int partit
 std::string PrintingDetailsService::getFileExtensionAnalysisDetailsForGui(int fileCounter, const std::set<std::string>& blackListedFiles) {
     std::string fileExtensionDetails;
 
-    fileExtensionDetails += " - " + std::to_string(fileCounter) + " files detected.\n";
+    fileExtensionDetails += "Detected Files\n" + std::to_string(fileCounter) + "\\\\";
     fileExtensionDetails += " - Black listed file extensions: ";
     for (const auto& item : Settings().fileExtensionBlacklist) {
         fileExtensionDetails += item + ", ";
@@ -196,12 +196,13 @@ std::string PrintingDetailsService::getFileExtensionAnalysisDetailsForGui(int fi
     fileExtensionDetails.push_back('\n');
 
     if (blackListedFiles.empty()) {
-        fileExtensionDetails += " - No black listed files detected.\n";
+        fileExtensionDetails += "Black Listed Files\n no \\\\";
     } else {
-        fileExtensionDetails += " - Following files are black listed:\n";
+        fileExtensionDetails += "Black Listed Files\n";
         for (const auto & blackListedFile : blackListedFiles) {
             fileExtensionDetails += " -- " + blackListedFile + "\n";
         }
+        fileExtensionDetails += "\\\\";
     }
 
     return fileExtensionDetails;
@@ -217,6 +218,11 @@ std::string PrintingDetailsService::getVirusAnalysisDetailsForGui(int fileCounte
         int infectedFilesCounter, const std::set<std::string>& virusNames, const std::set<std::string>& infectedFiles,
         std::map<std::string, bool> engineStatus) {
     std::string virusDetails;
+
+    virusDetails += "Scanned Files\n" + std::to_string(fileCounter) + "\\\\";
+    virusDetails += "Loaded Signatures\n" + std::to_string(signature) + "\\\\";
+    virusDetails += "MB scanned\n" + std::to_string(scannedData) + "\\\\";
+    virusDetails += "Infected Files\n" + std::to_string(infectedFilesCounter) + "\\\\";
 
     if (engineStatus.at("isClamAvInitialized")) {
         virusDetails += " - Clam Av Library initialisation successful.\n";
@@ -241,11 +247,6 @@ std::string PrintingDetailsService::getVirusAnalysisDetailsForGui(int fileCounte
     } else {
         virusDetails += " - Engine compilation failed.\n";
     }
-
-    virusDetails += " - " + std::to_string(fileCounter) + " files were scanned.\n";
-    virusDetails += " - " + std::to_string(signature) + " signature/s were loaded.\n";
-    virusDetails += " - " + std::to_string(scannedData) + " MB data were scanned.\n";
-    virusDetails += " - " + std::to_string(infectedFilesCounter) + " files infected.\n";
 
     if (infectedFilesCounter > 0) {
         virusDetails += " - Following viruses were detected:\n";
