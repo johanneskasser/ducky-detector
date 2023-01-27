@@ -6,7 +6,7 @@
 class Settings {
     public:
         // Paths
-        const char* mountPoint = "/mnt/mount";
+        const char* mountPoint = "/media/pi";
         const char* sysfsPath = "/sys/bus/usb/devices/";
         const char* usbIdPath = "/usr/share/misc/usb.ids";
         // Files
