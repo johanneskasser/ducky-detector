@@ -22,12 +22,16 @@ Diese Instruktionen werden Dich zu einer funktionsfühigen Kopie dieses Projekts
 
 ### <a name="Schnelle_Installation"></a>Schnelle Installation
 
-Unter diesem [Link](https://google.com) ist ein Image verfügbar, auf dem der Rubber Ducky Detector mit konfiguriertem JoyIT-3,2"-Touchscreen vorinstalliert ist. Das Image kann mit dem [Raspberry Pi Imager](https://www.raspberrypi.com/software/) Tool auf eine SD-Karte übertragen werden. Unter dem Reiter "OS wählen" kann mit der Option "Eigenes Image" die bereitgestellte .img-Datei ausgewählt und geflashed werden.
+Unter diesem [Link](https://drive.google.com/file/d/1rc4VAEZ_PBI_TmvLSsJv3klG4QjUyw9A/view?usp=sharing) ist ein Image verfügbar, auf dem der Rubber Ducky Detector mit konfiguriertem JoyIT-3,2"-Touchscreen vorinstalliert ist. Das Image kann mit dem [Raspberry Pi Imager](https://www.raspberrypi.com/software/) Tool auf eine SD-Karte übertragen werden. Unter dem Reiter "OS wählen" kann mit der Option "Eigenes Image" die bereitgestellte .img-Datei ausgewählt und geflashed werden.
 
 ![Raspberry Pi Imager](https://i.imgur.com/REnrDGa.png)
 
 Die SD-Karte muss vor dem Start des RasPi in den Slot eingesteckt werden.
 
+Credentials für img Datei:
+
+Username: `pi`
+Password: `duckyDetector`
 
 #### Troubleshooting der schnellen Installation
 
@@ -247,11 +251,16 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### <a name="Quick_Start"></a>Quick Start
 
-A custom image is available under this [link](https://google.com). The image contains a pre-installed version of the "Ducky Detector" utility, with the JoyIT 3,2" touchscreen already configured. The image can be flashed onto a SD card with the tool [Raspberry Pi Imager](https://www.raspberrypi.com/software/). The drop-down menu "Choose OS" contains the option "Custom Image" to choose flash the provided .img file.
+A custom image is available under this [link](https://drive.google.com/file/d/1rc4VAEZ_PBI_TmvLSsJv3klG4QjUyw9A/view?usp=sharing). The image contains a pre-installed version of the "Ducky Detector" utility, with the JoyIT 3,2" touchscreen already configured. The image can be flashed onto a SD card with the tool [Raspberry Pi Imager](https://www.raspberrypi.com/software/). The drop-down menu "Choose OS" contains the option "Custom Image" to choose flash the provided .img file.
 
 ![Raspberry Pi Imager](https://i.imgur.com/REnrDGa.png)
 
 Before booting the Raspberry Pi, the SD card needs to be inserted into the SD slot.
+
+Credentials for custom image:
+
+Username: `pi`
+Password: `duckyDetector`
 
 #### Troubleshooting quick start
 
