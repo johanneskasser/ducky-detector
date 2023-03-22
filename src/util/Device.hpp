@@ -10,6 +10,7 @@
 #include <unistd.h>
 #include "FileHandler.hpp"
 #include "Interface.hpp"
+#include "cstring"
 #include "../config/Settings.hpp"
 
 class Device {
