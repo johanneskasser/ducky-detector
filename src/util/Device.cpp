@@ -352,6 +352,8 @@ bool Device::mountUsb(const std::string& partition, const std::string& filesyste
     // in some cases the ID is "/sda1"
     std::string partitionIDLong  = partition;
 
+    std::cout<< "Partition: " << partition << std::endl;
+
     if (filesystem == "fat16") {
         filesystem_ = "vfat";
         // readonly on fat16 didnt work well in the past
@@ -364,8 +366,10 @@ bool Device::mountUsb(const std::string& partition, const std::string& filesyste
     // if not successful, try the long version
     // errors can be caught like: if(errno == EBUSY). print errors: printf("Mount error: %s", strerror(errno));
     if (mount(partitionIDShort.c_str(), settings.mountPoint, filesystem_.c_str(), mountflags, nullptr) == 0) {
+        printf("Mount error: %s", strerror(errno));
         return true;
     } else {
+        printf("Mount error: %s", strerror(errno));
         return mount(partitionIDLong.c_str(), settings.mountPoint, filesystem_.c_str(), mountflags, nullptr) == 0;
     }
 }
