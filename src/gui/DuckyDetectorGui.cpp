@@ -179,13 +179,15 @@ void DuckyDetectorGui::initDetailsDialog() {
 }
 
 void DuckyDetectorGui::startLoading() {
-    ::printf("Start Loading entry point...\n");
-    gtk_spinner_start(reinterpret_cast<GtkSpinner *>(loadingIndicator));
+    ::printf("\nStart Loading entry point...\n");
+    loadingIndicator->show();
+    loadingIndicator->start();
 }
 
 void DuckyDetectorGui::endLoading() {
-    ::printf("End Loading Exit point...\n");
-    gtk_spinner_stop(reinterpret_cast<GtkSpinner *>(loadingIndicator));
+    ::printf("\nEnd Loading Exit point...\n");
+    loadingIndicator->stop();
+    loadingIndicator->hide();
 }
 
 void DuckyDetectorGui::resetModuleNameBackground() {
