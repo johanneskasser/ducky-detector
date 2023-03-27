@@ -147,56 +147,6 @@ void DuckyDetectorGui::setText(const std::string& text) {
 void DuckyDetectorGui::setTextForReset(const std::string& text) {
     textBuffer->set_text(textBuffer->get_text() + text);
 }
-/*
-void DuckyDetectorGui::initMainWindow() {
-    set_default_size(320, 240);
-    set_title(title);
-    set_position(Gtk::WIN_POS_CENTER);
-    set_decorated(false);
-    set_border_width(5);
-
-    (*textBuffer) = Gtk::TextBuffer::create();
-
-    textView.set_editable(false);
-    textView.set_cursor_visible(false);
-    textView.set_buffer(textBuffer);
-
-    scrolledWindow.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
-    scrolledWindow.add(textView);
-
-    okButton.set_label("OK");
-    detailsButton.set_label("Details");
-    cancelButton.set_label("Cancel");
-
-    buttonBox.pack_start(okButton);
-    buttonBox.pack_start(detailsButton);
-    buttonBox.pack_start(cancelButton);
-    buttonBox.set_border_width(5);
-    buttonBox.set_spacing(5);
-    buttonBox.set_layout(Gtk::BUTTONBOX_CENTER);
-
-    auto infoBarContainer = dynamic_cast<Gtk::Container*>(infoBar.get_content_area());
-    if (infoBarContainer) {
-        infoBarContainer->add(infoBarMessage);
-    }
-
-    progressBar.set_halign(Gtk::ALIGN_CENTER);
-    progressBar.set_valign(Gtk::ALIGN_CENTER);
-    progressBar.set_text("Analysing process");
-    progressBar.set_show_text(true);
-
-    box.set_orientation(Gtk::ORIENTATION_VERTICAL);
-    box.pack_start(infoBar, Gtk::PACK_SHRINK);
-    box.pack_start(scrolledWindow);
-    box.pack_start(progressBar, Gtk::PACK_SHRINK);
-    box.pack_start(buttonBox, Gtk::PACK_SHRINK);
-
-    add(box);
-    show_all_children();
-
-    infoBar.hide();
-    progressBar.hide();
-}*/
 
 void DuckyDetectorGui::initDetailsDialog() {
     // Initialize the GtkBuilder object
@@ -229,13 +179,13 @@ void DuckyDetectorGui::initDetailsDialog() {
 }
 
 void DuckyDetectorGui::startLoading() {
-    loadingIndicator->show();
-    loadingIndicator->start();
+    (*loadingIndicator).show();
+    (*loadingIndicator).start();
 }
 
 void DuckyDetectorGui::endLoading() {
-    loadingIndicator->stop();
-    loadingIndicator->hide();
+    (*loadingIndicator).stop();
+    (*loadingIndicator).hide();
 }
 
 void DuckyDetectorGui::resetModuleNameBackground() {
