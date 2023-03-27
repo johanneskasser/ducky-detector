@@ -179,13 +179,13 @@ void DuckyDetectorGui::initDetailsDialog() {
 }
 
 void DuckyDetectorGui::startLoading() {
-    (*loadingIndicator).show();
-    (*loadingIndicator).start();
+    loadingIndicator->show();
+    loadingIndicator->start();
 }
 
 void DuckyDetectorGui::endLoading() {
-    (*loadingIndicator).stop();
-    (*loadingIndicator).hide();
+    loadingIndicator->stop();
+    loadingIndicator->hide();
 }
 
 void DuckyDetectorGui::resetModuleNameBackground() {
