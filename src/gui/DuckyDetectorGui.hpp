@@ -12,6 +12,7 @@
 #include <gtkmm/textview.h>
 #include <gtkmm/builder.h>
 #include <iostream>
+#include <gtkmm/spinner.h>
 
 class DuckyDetectorGui: public Gtk::ApplicationWindow {
     public:
@@ -35,6 +36,8 @@ class DuckyDetectorGui: public Gtk::ApplicationWindow {
         void setTextForReset(const std::string& text);
         void setModuleName(const std::string& moduleName);
         void resetModuleNameBackground();
+        void startLoading();
+        void endLoading();
         //Gtk::ApplicationWindow* getApplicationWindow();
 
     private:
@@ -62,6 +65,7 @@ class DuckyDetectorGui: public Gtk::ApplicationWindow {
         Glib::RefPtr<Gtk::TextBuffer> bean2buffer;
         Glib::RefPtr<Gtk::TextBuffer> bean3buffer;
         Glib::RefPtr<Gtk::TextBuffer> bean4buffer;
+        Gtk::Spinner* loadingIndicator;
 
         void initMainWindow();
         void initDetailsDialog();

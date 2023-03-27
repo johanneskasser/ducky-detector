@@ -366,10 +366,10 @@ bool Device::mountUsb(const std::string& partition, const std::string& filesyste
     // if not successful, try the long version
     // errors can be caught like: if(errno == EBUSY). print errors: printf("Mount error: %s", strerror(errno));
     if (mount(partitionIDShort.c_str(), settings.mountPoint, filesystem_.c_str(), mountflags, nullptr) == 0) {
-        printf("Mount error: %s", strerror(errno));
+        printf("Mount error: %s\n", strerror(errno));
         return true;
     } else {
-        printf("Mount error: %s", strerror(errno));
+        printf("Mount error: %s\n", strerror(errno));
         return mount(partitionIDLong.c_str(), settings.mountPoint, filesystem_.c_str(), mountflags, nullptr) == 0;
     }
 }

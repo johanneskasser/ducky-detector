@@ -17,6 +17,7 @@ DuckyDetectorGui::DuckyDetectorGui() {
     builder->get_widget("progressBar", progressBar);
     builder->get_widget("currentModuleName", currentModuleName);
     builder->get_widget("moduleNameBox", moduleNameBox);
+    builder->get_widget("loading-indicator", loadingIndicator);
 
     textBuffer = Gtk::TextBuffer::create();
 
@@ -225,6 +226,16 @@ void DuckyDetectorGui::initDetailsDialog() {
     detailsDialog->signal_hide().connect(sigc::mem_fun(*this, &DuckyDetectorGui::resetDetailsDialog));
 
     detailsOkButton->signal_clicked().connect(sigc::mem_fun(*detailsDialog, &Gtk::Window::hide));
+}
+
+void DuckyDetectorGui::startLoading() {
+    loadingIndicator->show();
+    loadingIndicator->start();
+}
+
+void DuckyDetectorGui::endLoading() {
+    loadingIndicator->stop();
+    loadingIndicator->hide();
 }
 
 void DuckyDetectorGui::resetModuleNameBackground() {
