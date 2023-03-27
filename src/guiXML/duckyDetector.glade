@@ -285,7 +285,7 @@
               </packing>
             </child>
             <child type="overlay">
-              <object class="GtkSpinner" id="loading-indicator1">
+              <object class="GtkSpinner" id="loading-indicator">
                 <property name="name">loading-indicator</property>
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
