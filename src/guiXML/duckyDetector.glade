@@ -274,6 +274,7 @@
                   <object class="GtkTextView" id="textView">
                     <property name="name">textView</property>
                     <property name="can-focus">True</property>
+                    <property name="opacity">0.5</property>
                     <property name="editable">False</property>
                     <property name="buffer">textBuffer</property>
                   </object>
@@ -382,5 +383,7 @@
       </object>
     </child>
   </object>
-  <object class="GtkTextBuffer" id="textBuffer"/>
+  <object class="GtkTextBuffer" id="textBuffer">
+    <property name="text" translatable="yes">uzfg</property>
+  </object>
 </interface>
