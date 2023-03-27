@@ -16,7 +16,7 @@ DuckyDetectorGui* DuckyDetectorApplicationGui::createApplicationWindow() {
 
     runApplication();
 
-    applicationWindow->endLoading();
+    //applicationWindow->endLoading();
 
     return applicationWindow;
 }
