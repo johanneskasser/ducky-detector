@@ -180,7 +180,7 @@ void DuckyDetectorGui::initDetailsDialog() {
 
 void DuckyDetectorGui::startLoading() {
     ::printf("Start Loading entry point...\n");
-    gtk_spinner_start(reinterpret_cast<GtkSpinner *>(loadingIndicator))
+    gtk_spinner_start(reinterpret_cast<GtkSpinner *>(loadingIndicator));
 }
 
 void DuckyDetectorGui::endLoading() {
