@@ -179,11 +179,13 @@ void DuckyDetectorGui::initDetailsDialog() {
 }
 
 void DuckyDetectorGui::startLoading() {
+    ::printf("Start Loading entry point...");
     loadingIndicator->show();
     loadingIndicator->start();
 }
 
 void DuckyDetectorGui::endLoading() {
+    ::printf("End Loading Exit point...");
     loadingIndicator->stop();
     loadingIndicator->hide();
 }

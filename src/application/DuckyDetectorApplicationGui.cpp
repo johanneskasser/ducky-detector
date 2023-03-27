@@ -32,6 +32,8 @@ void DuckyDetectorApplicationGui::runApplication() {
     applicationWindow->showProgressBar();
     applicationWindow->setText(PrintingService::getLogoForGui() + PrintingService::getStartOfScanProcessTextForGui());
 
+    applicationWindow->endLoading();
+
     okButtonSignalConnection.disconnect();
     okButtonSignalConnection = applicationWindow->okButton->signal_clicked().connect(sigc::mem_fun(*this,
         &DuckyDetectorApplicationGui::onStartScanProcessAndCheckSystemRequirements));
