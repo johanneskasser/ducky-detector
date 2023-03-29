@@ -2,6 +2,7 @@
 #define DUCKYDETECTOR_DUCKYDETECTORAPPLICATION_HPP
 
 #include <gtkmm/application.h>
+#include <wiringPi.h>
 #include "../gui/DuckyDetectorGui.hpp"
 #include "../analysis/Scanner.hpp"
 #include "../util/printing/PrintingService.hpp"
@@ -27,6 +28,7 @@ class DuckyDetectorApplicationGui : public Gtk::Application {
 
         DuckyDetectorGui* createApplicationWindow();
         void runApplication();
+        void setupGpio();
         void onStartScanProcessAndCheckSystemRequirements();
         void onUsbPreCheck();
         void onInitialPeripheryAnalysis();
@@ -43,6 +45,7 @@ class DuckyDetectorApplicationGui : public Gtk::Application {
         void onMalwareDetails();
         void onHideWindow(Gtk::Window* window);
         void onCancelButtonClicked();
+        void onButtonClicked();
         void resetWindow();
 };
 

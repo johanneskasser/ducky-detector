@@ -11,8 +11,8 @@
 #include <gtkmm/scrolledwindow.h>
 #include <gtkmm/textview.h>
 #include <gtkmm/builder.h>
-#include <iostream>
 #include <gtkmm/spinner.h>
+#include <iostream>
 
 class DuckyDetectorGui: public Gtk::ApplicationWindow {
     public:
@@ -67,7 +67,6 @@ class DuckyDetectorGui: public Gtk::ApplicationWindow {
         Glib::RefPtr<Gtk::TextBuffer> bean4buffer;
         Gtk::Spinner* loadingIndicator;
 
-        void initMainWindow();
         void initDetailsDialog();
 };
 

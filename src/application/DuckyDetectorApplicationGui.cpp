@@ -21,6 +21,13 @@ DuckyDetectorGui* DuckyDetectorApplicationGui::createApplicationWindow() {
     return applicationWindow;
 }
 
+void DuckyDetectorApplicationGui::setupGpio() {
+    wiringPiSetup();
+    pinMode(12, INPUT);
+    pinMode(16, INPUT);
+    pinMode(18, INPUT);
+}
+
 void DuckyDetectorApplicationGui::on_activate() {
     applicationWindow = createApplicationWindow();
     applicationWindow->present();
@@ -43,6 +50,10 @@ void DuckyDetectorApplicationGui::runApplication() {
     cancelButtonSignalConnection.disconnect();
     cancelButtonSignalConnection = applicationWindow->cancelButton->signal_clicked().connect(sigc::mem_fun(*this,
         &DuckyDetectorApplicationGui::onCancelButtonClicked));
+
+    wiringPiISR(12, INT_EDGE_BOTH, &DuckyDetectorApplicationGui::onButtonClicked);
+    wiringPiISR(16, INT_EDGE_BOTH, &DuckyDetectorApplicationGui::onButtonClicked);
+    wiringPiISR(18, INT_EDGE_BOTH, &DuckyDetectorApplicationGui::onButtonClicked);
 }
 
 void DuckyDetectorApplicationGui::onStartScanProcessAndCheckSystemRequirements() {
@@ -262,6 +273,26 @@ void DuckyDetectorApplicationGui::onCancelButtonClicked() {
     applicationWindow->setText(PrintingService::getUnblockingPortsTextForGui() + PrintingService::getByeTextForGui());
     scanner.freeMemory();
     applicationWindow->unset_application();
+}
+
+void DuckyDetectorApplicationGui::onButtonClicked(int pin) {
+    if (digitalRead(pin) == LOW) {
+        // Button is clicked
+        switch (pin) {
+            case 12:
+                // Do something for button connected to GPIO12
+                printf("GPIO12 Button Pressed!");
+                break;
+            case 16:
+                printf("GPIO16 Button Pressed!");
+                // Do something for button connected to GPIO16
+                break;
+            case 18:
+                printf("GPIO18 Button Pressed!");
+                // Do something for button connected to GPIO18
+                break;
+        }
+    }
 }
 
 void DuckyDetectorApplicationGui::onHideWindow(Gtk::Window* window) {
