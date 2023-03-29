@@ -53,9 +53,9 @@ void DuckyDetectorApplicationGui::runApplication() {
     cancelButtonSignalConnection = applicationWindow->cancelButton->signal_clicked().connect(sigc::mem_fun(*this,
         &DuckyDetectorApplicationGui::onCancelButtonClicked));
 
-    wiringPiISR(12, INT_EDGE_BOTH, &DuckyDetectorApplicationGui::onButtonClicked);
-    wiringPiISR(16, INT_EDGE_BOTH, &DuckyDetectorApplicationGui::onButtonClicked);
-    wiringPiISR(18, INT_EDGE_BOTH, &DuckyDetectorApplicationGui::onButtonClicked);
+    wiringPiISR(12, INT_EDGE_BOTH, [](){ onButtonClicked(12); });
+    wiringPiISR(16, INT_EDGE_BOTH, [](){ onButtonClicked(16); });
+    wiringPiISR(18, INT_EDGE_BOTH, [](){ onButtonClicked(18); });
 
 }
 
