@@ -14,6 +14,8 @@ DuckyDetectorGui* DuckyDetectorApplicationGui::createApplicationWindow() {
     applicationWindow->signal_hide().connect(sigc::bind<Gtk::Window*>(sigc::mem_fun(*this,
         &DuckyDetectorApplicationGui::onHideWindow), applicationWindow));
 
+    setupGpio();
+
     runApplication();
 
     //applicationWindow->endLoading();
@@ -51,9 +53,10 @@ void DuckyDetectorApplicationGui::runApplication() {
     cancelButtonSignalConnection = applicationWindow->cancelButton->signal_clicked().connect(sigc::mem_fun(*this,
         &DuckyDetectorApplicationGui::onCancelButtonClicked));
 
-    wiringPiISR(12, INT_EDGE_BOTH, onButtonClicked(12));
-    wiringPiISR(16, INT_EDGE_BOTH, onButtonClicked(16));
-    wiringPiISR(18, INT_EDGE_BOTH, onButtonClicked(18));
+    wiringPiISR(pin, INT_EDGE_BOTH, [this, pin]() {
+        onButtonClicked(pin);
+    });
+
 }
 
 void DuckyDetectorApplicationGui::onStartScanProcessAndCheckSystemRequirements() {
