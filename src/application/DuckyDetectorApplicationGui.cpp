@@ -54,9 +54,9 @@ void DuckyDetectorApplicationGui::runApplication() {
         &DuckyDetectorApplicationGui::onCancelButtonClicked));
 
     // Connect button click events
-    wiringPiISR(12, INT_EDGE_BOTH, [this]() { this->onButtonClicked(12); });
-    wiringPiISR(16, INT_EDGE_BOTH, [this]() { this->onButtonClicked(16); });
-    wiringPiISR(18, INT_EDGE_BOTH, [this]() { this->onButtonClicked(18); });
+    wiringPiISR(12, INT_EDGE_BOTH, [](void) { printf("GPIO 12 Pressed!"); });
+    wiringPiISR(16, INT_EDGE_BOTH, [](void) { printf("GPIO 16 Pressed!"); });
+    wiringPiISR(18, INT_EDGE_BOTH, [](void) { printf("GPIO 18 Pressed!"); });
 
 }
 
