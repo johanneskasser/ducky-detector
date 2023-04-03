@@ -46,6 +46,7 @@ class DuckyDetectorApplicationGui : public Gtk::Application {
         void onHideWindow(Gtk::Window* window);
         void onCancelButtonClicked();
         void onButtonClicked(int pin);
+        void onButtonInterrupt(int pin);
         void resetWindow();
 };
 
