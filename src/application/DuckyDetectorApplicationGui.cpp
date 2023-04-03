@@ -24,7 +24,7 @@ DuckyDetectorGui* DuckyDetectorApplicationGui::createApplicationWindow() {
 }
 
 void DuckyDetectorApplicationGui::setupGpio() {
-    wiringPiSetupGpio();
+    wiringPiSetup();
     pinMode(12, INPUT);
     pinMode(16, INPUT);
     pinMode(18, INPUT);
@@ -54,9 +54,9 @@ void DuckyDetectorApplicationGui::runApplication() {
         &DuckyDetectorApplicationGui::onCancelButtonClicked));
 
     // Connect button click events
-    wiringPiISR(12, INT_EDGE_FALLING, &DuckyDetectorApplicationGui::onButtonClicked);
-    wiringPiISR(16, INT_EDGE_FALLING, &DuckyDetectorApplicationGui::onButtonClicked);
-    wiringPiISR(18, INT_EDGE_FALLING, &DuckyDetectorApplicationGui::onButtonClicked);
+    wiringPiISR(12, INT_EDGE_BOTH, [this]() { this->onButtonClicked(12); });
+    wiringPiISR(16, INT_EDGE_BOTH, [this]() { this->onButtonClicked(16); });
+    wiringPiISR(18, INT_EDGE_BOTH, [this]() { this->onButtonClicked(18); });
 
 }
 
@@ -279,8 +279,14 @@ void DuckyDetectorApplicationGui::onCancelButtonClicked() {
     applicationWindow->unset_application();
 }
 
-void DuckyDetectorApplicationGui::onButtonClicked(void) {
-    printf("GPIO12 Button Pressed!");
+void DuckyDetectorApplicationGui::onButtonClicked(int pin) {
+    if(pin == 12){
+        printf("GPIO12 Button Pressed!");
+    } else if (pin == 16) {
+        printf("GPIO16 Button Pressed!");
+    } else {
+        printf("GPIO18 Button Pressed!");
+    }
 }
 
 void DuckyDetectorApplicationGui::onHideWindow(Gtk::Window* window) {

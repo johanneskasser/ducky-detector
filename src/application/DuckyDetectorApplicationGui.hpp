@@ -45,7 +45,7 @@ class DuckyDetectorApplicationGui : public Gtk::Application {
         void onMalwareDetails();
         void onHideWindow(Gtk::Window* window);
         void onCancelButtonClicked();
-        void onButtonClicked(void);
+        void onButtonClicked(int pin);
         void resetWindow();
 };
 
