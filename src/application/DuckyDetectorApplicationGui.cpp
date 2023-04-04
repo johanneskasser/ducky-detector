@@ -14,8 +14,6 @@ DuckyDetectorGui* DuckyDetectorApplicationGui::createApplicationWindow() {
     applicationWindow->signal_hide().connect(sigc::bind<Gtk::Window*>(sigc::mem_fun(*this,
         &DuckyDetectorApplicationGui::onHideWindow), applicationWindow));
 
-    setupGpio();
-
     runApplication();
 
     //applicationWindow->endLoading();
@@ -23,12 +21,6 @@ DuckyDetectorGui* DuckyDetectorApplicationGui::createApplicationWindow() {
     return applicationWindow;
 }
 
-void DuckyDetectorApplicationGui::setupGpio() {
-    wiringPiSetup();
-    pinMode(12, INPUT);
-    pinMode(16, INPUT);
-    pinMode(18, INPUT);
-}
 
 void DuckyDetectorApplicationGui::on_activate() {
     applicationWindow = createApplicationWindow();
@@ -52,11 +44,6 @@ void DuckyDetectorApplicationGui::runApplication() {
     cancelButtonSignalConnection.disconnect();
     cancelButtonSignalConnection = applicationWindow->cancelButton->signal_clicked().connect(sigc::mem_fun(*this,
         &DuckyDetectorApplicationGui::onCancelButtonClicked));
-
-    // Connect button click events
-    wiringPiISR(12, INT_EDGE_BOTH, [](void) { printf("GPIO 12 Pressed!"); });
-    wiringPiISR(16, INT_EDGE_BOTH, [](void) { printf("GPIO 16 Pressed!"); });
-    wiringPiISR(18, INT_EDGE_BOTH, [](void) { printf("GPIO 18 Pressed!"); });
 
 }
 
@@ -277,16 +264,6 @@ void DuckyDetectorApplicationGui::onCancelButtonClicked() {
     applicationWindow->setText(PrintingService::getUnblockingPortsTextForGui() + PrintingService::getByeTextForGui());
     scanner.freeMemory();
     applicationWindow->unset_application();
-}
-
-void DuckyDetectorApplicationGui::onButtonClicked(int pin) {
-    if(pin == 12){
-        printf("GPIO12 Button Pressed!");
-    } else if (pin == 16) {
-        printf("GPIO16 Button Pressed!");
-    } else {
-        printf("GPIO18 Button Pressed!");
-    }
 }
 
 void DuckyDetectorApplicationGui::onHideWindow(Gtk::Window* window) {
