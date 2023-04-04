@@ -180,14 +180,14 @@ void DuckyDetectorGui::initDetailsDialog() {
 
 void DuckyDetectorGui::startLoading() {
     ::printf("\nStart Loading entry point...\n");
-    loadingIndicator->show();
-    loadingIndicator->start();
+    (*loadingIndicator).show();
+    (*loadingIndicator).start();
 }
 
 void DuckyDetectorGui::endLoading() {
     ::printf("\nEnd Loading Exit point...\n");
-    loadingIndicator->stop();
-    loadingIndicator->hide();
+    (*loadingIndicator).stop();
+    (*loadingIndicator).hide();
 }
 
 void DuckyDetectorGui::resetModuleNameBackground() {
