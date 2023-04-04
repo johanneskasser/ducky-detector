@@ -1,8 +1,11 @@
 #ifndef DUCKYDETECTOR_DUCKYDETECTORAPPLICATION_HPP
 #define DUCKYDETECTOR_DUCKYDETECTORAPPLICATION_HPP
 
+extern "C" {
+    #include <wiringPi.h>
+}
+
 #include <gtkmm/application.h>
-#include <wiringPi.h>
 #include "../gui/DuckyDetectorGui.hpp"
 #include "../analysis/Scanner.hpp"
 #include "../util/printing/PrintingService.hpp"
