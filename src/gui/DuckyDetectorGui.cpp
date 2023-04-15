@@ -197,7 +197,7 @@ void DuckyDetectorGui::resetModuleNameBackground() {
 }
 
 bool DuckyDetectorGui::returnFastRunStatus() {
-    return (*fastRun).get_active()
+    return (*fastRun).get_active();
 }
 
 DuckyDetectorGui::~DuckyDetectorGui() {
