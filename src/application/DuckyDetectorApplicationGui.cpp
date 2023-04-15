@@ -38,8 +38,8 @@ void DuckyDetectorApplicationGui::runApplication() {
     okButtonSignalConnection.disconnect();
     okButtonSignalConnection = applicationWindow->okButton->signal_clicked().connect(sigc::mem_fun(*this,
                                                                                                    (applicationWindow->returnFastRunStatus() ?
-                                                                                                   &DuckyDetectorApplicationGui::onFastAnalysis :
-                                                                                                   &DuckyDetectorApplicationGui::onStartScanProcessAndCheckSystemRequirements)));
+                                                                                                   &DuckyDetectorApplicationGui::onStartScanProcessAndCheckSystemRequirements :
+                                                                                                   &DuckyDetectorApplicationGui::onFastAnalysis)));
 
     detailsButtonSignalConnection.disconnect();
 
