@@ -37,7 +37,9 @@ void DuckyDetectorApplicationGui::runApplication() {
 
     okButtonSignalConnection.disconnect();
     okButtonSignalConnection = applicationWindow->okButton->signal_clicked().connect(sigc::mem_fun(*this,
-        &DuckyDetectorApplicationGui::onStartScanProcessAndCheckSystemRequirements));
+                                                                                                   (applicationWindow->returnFastRunStatus() ?
+                                                                                                   &DuckyDetectorApplicationGui::onFastAnalysis :
+                                                                                                   &DuckyDetectorApplicationGui::onStartScanProcessAndCheckSystemRequirements)));
 
     detailsButtonSignalConnection.disconnect();
 
@@ -279,4 +281,75 @@ void DuckyDetectorApplicationGui::resetWindow() {
     applicationWindow->resetModuleNameBackground();
     //applicationWindow->hideInfoBar();
     applicationWindow->resetProgressBar();
+}
+
+
+void DuckyDetectorApplicationGui::onFastAnalysis() {
+    applicationWindow->setModuleName("Fast Analysis");
+    applicationWindow->startLoading();
+
+
+    int firstPeripheryAnalysisResult;
+
+    applicationWindow->showInfoDialog();
+    firstPeripheryAnalysisResult = scanner.startPeripheryAnalysis(true);
+
+    if (firstPeripheryAnalysisResult != 0) {
+        applicationWindow->showError("Periphery Analysis FAILED!");
+        applicationWindow->setText(PrintingResultService::getPeripheryAnalysisResultForGui(firstPeripheryAnalysisResult));
+        onReset();
+    } else {
+        applicationWindow->setProgress(step);
+        int secondPeripheryAnalysis;
+        secondPeripheryAnalysis = scanner.startPeripheryAnalysis(false);
+
+        if (secondPeripheryAnalysis != 0) {
+            applicationWindow->showError("Periphery Analysis FAILED!");
+            applicationWindow->setText(PrintingResultService::getPeripheryAnalysisResultForGui(secondPeripheryAnalysis));
+            onReset();
+        } else {
+            applicationWindow->setProgress(step);
+            int partAnalysis;
+
+            partAnalysis = scanner.startPartitionAnalysis();
+
+            if(partAnalysis != 0) {
+                applicationWindow->showError("Partition Analysis FAILED!");
+                applicationWindow->setText(PrintingResultService::getPartitionAnalysisResultForGui(partAnalysis));
+                onReset();
+            } else {
+                applicationWindow->setProgress(step);
+                int fileExtAnalysis;
+                fileExtAnalysis = scanner.startFileExtensionAnalysis();
+
+                if(fileExtAnalysis != 0) {
+                    applicationWindow->showError("File Extension Analysis FAILED!");
+                    applicationWindow->setText(PrintingResultService::getFileExtensionAnalysisResultForGui(fileExtAnalysis));
+                    onReset();
+                } else {
+                    applicationWindow->setProgress(step);
+                    int malwareAnalysis;
+                    malwareAnalysis = scanner.startMalwareAnalysis();
+
+                    if(malwareAnalysis != 0) {
+                        applicationWindow->showError("Virus Analysis FAILED!");
+                        applicationWindow->setText(PrintingResultService::getVirusAnalysisResultForGui(malwareAnalysis));
+                        onReset();
+                    } else {
+                        applicationWindow->setText(PrintingService::getProcessWentGoodTextForGui());
+
+                        okButtonSignalConnection.disconnect();
+                        okButtonSignalConnection = applicationWindow->okButton->signal_clicked().connect(sigc::mem_fun(*this,
+                                                                                                                       &DuckyDetectorApplicationGui::onReset));
+                    }
+                }
+
+            }
+        }
+
+    }
+
+
+    applicationWindow->endLoading();
+
 }

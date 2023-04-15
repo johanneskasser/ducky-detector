@@ -45,6 +45,7 @@ class DuckyDetectorApplicationGui : public Gtk::Application {
         void onHideWindow(Gtk::Window* window);
         void onCancelButtonClicked();
         void resetWindow();
+        void onFastAnalysis();
 };
 
 #endif //DUCKYDETECTOR_DUCKYDETECTORAPPLICATION_HPP

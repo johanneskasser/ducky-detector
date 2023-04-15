@@ -18,6 +18,8 @@ DuckyDetectorGui::DuckyDetectorGui() {
     builder->get_widget("currentModuleName", currentModuleName);
     builder->get_widget("moduleNameBox", moduleNameBox);
     builder->get_widget("loading-indicator", loadingIndicator);
+    builder->get_widget("fast_run", fastRun);
+    builder->get_widget("fastRunBottonBox", buttonBoxFastRun);
 
     textBuffer = Gtk::TextBuffer::create();
 
@@ -192,6 +194,10 @@ void DuckyDetectorGui::endLoading() {
 
 void DuckyDetectorGui::resetModuleNameBackground() {
     (*moduleNameBox).unset_background_color();
+}
+
+bool DuckyDetectorGui::returnFastRunStatus() {
+    return (*fastRun).get_active()
 }
 
 DuckyDetectorGui::~DuckyDetectorGui() {

@@ -8,6 +8,7 @@
 #include <gtkmm/infobar.h>
 #include <gtkmm/messagedialog.h>
 #include <gtkmm/progressbar.h>
+#include <gtkmm/switch.h>
 #include <gtkmm/scrolledwindow.h>
 #include <gtkmm/textview.h>
 #include <gtkmm/builder.h>
@@ -38,6 +39,7 @@ class DuckyDetectorGui: public Gtk::ApplicationWindow {
         void resetModuleNameBackground();
         void startLoading();
         void endLoading();
+        bool returnFastRunStatus();
         //Gtk::ApplicationWindow* getApplicationWindow();
 
     private:
@@ -66,6 +68,8 @@ class DuckyDetectorGui: public Gtk::ApplicationWindow {
         Glib::RefPtr<Gtk::TextBuffer> bean3buffer;
         Glib::RefPtr<Gtk::TextBuffer> bean4buffer;
         Gtk::Spinner* loadingIndicator;
+        Gtk::Switch* fastRun;
+        Gtk::ButtonBox* buttonBoxFastRun;
 
         void initDetailsDialog();
 };
