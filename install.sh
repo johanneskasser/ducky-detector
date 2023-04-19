@@ -17,14 +17,17 @@ function update_bar() {
 
   # Draw the loading bar
   bar=$(printf "[%-${bar_width}s]" "${bar_char:0:bar_size}")
-  empty=$(printf "[%-${bar_width}s]" "${empty_char:0:$((bar_width - bar_size)))}")
-  printf "\r%s %d%% %s" "$bar" "$percentage" "$empty"
+    empty=$(printf "[%-${bar_width}s]" "${empty_char:0:$((bar_width - bar_size))}")
+    printf "\033[2K\r%s %d%% %s" "$bar" "$percentage" "$empty"
 }
 
 # Define the function to call when a step is completed
 function completedStep() {
   # Increment the completed steps counter
   completed_steps=$((completed_steps + 1))
+
+  # Clear the previous loading bar
+  printf "\033[2K\r"
 
   # Update the loading bar
   update_bar "$completed_steps"
