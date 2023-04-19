@@ -1,33 +1,39 @@
 #!/bin/bash
 
-loading() {
-  printf "Loading, please wait.. "
+total_steps=10
 
-  sp="/-\|"
-  sc=0
+bar_width=50
 
-  working=$1
+bar_char="#"
+empty_char="-"
 
+function update_bar() {
+  # Calculate the percentage of completion
+  completed_steps=$1
+  percentage=$((completed_steps * 100 / total_steps))
 
-  until [ "$working" -lt 1 ]
-  do
-     spin
-  done
-  endspin
+  # Calculate the number of characters to draw in the bar
+  bar_size=$((bar_width * completed_steps / total_steps))
+
+  # Draw the loading bar
+  bar=$(printf "[%-${bar_width}s]" "${bar_char:0:bar_size}")
+  empty=$(printf "[%-${bar_width}s]" "${empty_char:0:$((bar_width - bar_size)))}")
+  printf "\r%s %d%% %s" "$bar" "$percentage" "$empty"
 }
 
-sp="/-\|"
-sc=0
+# Define the function to call when a step is completed
+function completedStep() {
+  # Increment the completed steps counter
+  completed_steps=$((completed_steps + 1))
 
-function spin {
+  # Update the loading bar
+  update_bar "$completed_steps"
 
-   printf "\b${sp:sc++:1}"
-   ((sc==${#sp})) && sc=0
-}
-
-# shellcheck disable=SC2120
-function endspin {
-    printf "\r%s\n" "$@"
+  # Check if all steps have been completed
+  if [ "$completed_steps" -eq "$total_steps" ]; then
+    echo ""
+    echo "Task completed!"
+  fi
 }
 
 function installTouchScreen {
@@ -87,6 +93,8 @@ function enableAutoStartup {
 
 user=$(whoami)
 
+update_bar 0
+
 if [ "$user" != "root" ]; then
   echo "=== FATAL ERROR: You need to execute this script as root user! ==="
   exit
@@ -96,12 +104,24 @@ else
 
 
   sudo apt-get update &>> ./debug.txt
+  completedStep
   sudo apt-get upgrade &>> ./debug.txt
+  completedStep
 
-  sudo apt-get --assume-yes install g++ libusb-1.0-0-dev clamav libclamav-dev libgtkmm-3.0-dev &>> ./debug.txt
+  sudo apt-get --assume-yes install g++ &>> ./debug.txt
+  completedStep
+  sudo apt-get --assume-yes install clamav &>> ./debug.txt
+  completedStep
+  sudo apt-get --assume-yes install libclamav-dev &>> ./debug.txt
+  completedStep
+  sudo apt-get --assume-yes install llibgtkmm-3.0-dev &>> ./debug.txt
+  completedStep
+
 
   mkdir -p /mnt/mount
+  completedStep
   sudo make &>> ./debug.txt
+  completedStep
 
 
 
@@ -115,6 +135,7 @@ else
   else
     echo "Proceeding to automatic Start"
   fi
+  completedStep
 
   echo "=== Do you want to start the ducky-detector everytime the raspberry pi is started? ==="
   echo "(1) yes"
@@ -131,5 +152,6 @@ else
   else
     echo "=== Something went wrong! Please Consult the debug.txt file for further information! ==="
   fi
+  completedStep
 fi
 
