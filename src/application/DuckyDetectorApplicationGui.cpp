@@ -52,7 +52,7 @@ void DuckyDetectorApplicationGui::runApplicationInterceptor() {
     if (applicationWindow->returnFastRunStatus()) {
         onFastAnalysis();
     } else {
-        onStartFileExtensionAnalysis();
+        onStartScanProcessAndCheckSystemRequirements();
     }
 }
 
