@@ -82,9 +82,9 @@ else
   echo "=== Installing Ducky Detector v2.1 ==="
   echo "--- Installing required packages (This may take a while)... ---"
 
-  sudo apt-get update &>>./debug.txt
+  sudo apt-get --assume-yes update &>>./debug.txt
   prog
-  sudo apt-get upgrade &>>./debug.txt
+  sudo apt-get --assume-yes upgrade &>>./debug.txt
   prog
 
   sudo apt-get --assume-yes install g++ &>>./debug.txt
@@ -93,7 +93,7 @@ else
   prog
   sudo apt-get --assume-yes install libclamav-dev &>>./debug.txt
   prog
-  sudo apt-get --assume-yes install llibgtkmm-3.0-dev &>>./debug.txt
+  sudo apt-get --assume-yes install libgtkmm-3.0-dev &>>./debug.txt
   prog
 
   mkdir -p /mnt/mount

@@ -181,13 +181,11 @@ void DuckyDetectorGui::initDetailsDialog() {
 }
 
 void DuckyDetectorGui::startLoading() {
-    ::printf("\nStart Loading entry point...\n");
     (*loadingIndicator).show();
     (*loadingIndicator).start();
 }
 
 void DuckyDetectorGui::endLoading() {
-    ::printf("\nEnd Loading Exit point...\n");
     (*loadingIndicator).stop();
     (*loadingIndicator).hide();
 }
@@ -197,6 +195,12 @@ void DuckyDetectorGui::resetModuleNameBackground() {
 }
 
 bool DuckyDetectorGui::returnFastRunStatus() {
+    if((*fastRun).get_active() == true) {
+        ::printf("\nFast Run: true");
+    } else
+    {
+        ::printf("\nFast Run: false");
+    }
     return (*fastRun).get_active();
 }
 
