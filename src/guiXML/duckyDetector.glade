@@ -9,8 +9,8 @@
   <object class="GtkTextBuffer" id="detailsTextBuffer"/>
   <object class="GtkMessageDialog" id="detailsDialog">
     <property name="name">detailsDialog</property>
-    <property name="width-request">320</property>
-    <property name="height-request">240</property>
+    <property name="width-request">800</property>
+    <property name="height-request">600</property>
     <property name="can-focus">False</property>
     <property name="title" translatable="yes">Details</property>
     <property name="type-hint">dialog</property>
@@ -19,7 +19,7 @@
         <property name="name">detailsBox</property>
         <property name="can-focus">False</property>
         <property name="orientation">vertical</property>
-        <property name="spacing">2</property>
+        <property name="spacing">22</property>
         <child internal-child="action_area">
           <object class="GtkButtonBox" id="detailsButtonBox">
             <property name="name">detailsButtonBox</property>
@@ -35,10 +35,12 @@
               <object class="GtkButton" id="detailsOkButton">
                 <property name="label">gtk-ok</property>
                 <property name="name">detailsOkButton</property>
+                <property name="width-request">144</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">True</property>
                 <property name="use-stock">True</property>
+                <property name="image-position">bottom</property>
                 <property name="always-show-image">True</property>
               </object>
               <packing>
@@ -99,13 +101,14 @@
                 <property name="margin-top">5</property>
                 <property name="margin-bottom">5</property>
                 <property name="shadow-type">in</property>
-                <property name="min-content-height">60</property>
+                <property name="min-content-height">100</property>
                 <child>
                   <object class="GtkTextView" id="bean1">
                     <property name="name">scannedDataTextView</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="editable">False</property>
+                    <property name="wrap-mode">word</property>
                     <property name="justification">center</property>
                     <property name="cursor-visible">False</property>
                     <property name="buffer">bean1buffer</property>
@@ -124,7 +127,7 @@
                 <property name="margin-top">5</property>
                 <property name="margin-bottom">5</property>
                 <property name="shadow-type">in</property>
-                <property name="min-content-height">60</property>
+                <property name="min-content-height">100</property>
                 <child>
                   <object class="GtkTextView" id="bean4">
                     <property name="name">infectedFilesTextView</property>
@@ -149,7 +152,7 @@
                 <property name="margin-top">5</property>
                 <property name="margin-bottom">5</property>
                 <property name="shadow-type">in</property>
-                <property name="min-content-height">60</property>
+                <property name="min-content-height">100</property>
                 <child>
                   <object class="GtkTextView" id="bean2">
                     <property name="name">loadedSignaturesTextView</property>
@@ -174,7 +177,7 @@
                 <property name="margin-top">5</property>
                 <property name="margin-bottom">5</property>
                 <property name="shadow-type">in</property>
-                <property name="min-content-height">60</property>
+                <property name="min-content-height">100</property>
                 <child>
                   <object class="GtkTextView" id="bean3">
                     <property name="name">virusTypesTextView</property>
@@ -252,9 +255,6 @@
           </packing>
         </child>
         <child>
-          <placeholder/>
-        </child>
-        <child>
           <object class="GtkOverlay" id="overlayWidget">
             <property name="name">overlayWidget</property>
             <property name="visible">True</property>
@@ -265,7 +265,7 @@
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="shadow-type">in</property>
-                <property name="min-content-height">345</property>
+                <property name="min-content-height">300</property>
                 <child>
                   <object class="GtkTextView" id="textView">
                     <property name="name">textView</property>
@@ -364,20 +364,22 @@
             <property name="height-request">90</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="border-width">5</property>
             <property name="spacing">30</property>
             <property name="layout-style">spread</property>
             <child>
               <object class="GtkButton" id="okButton">
                 <property name="label" translatable="yes">OK</property>
                 <property name="name">okButton</property>
+                <property name="width-request">160</property>
+                <property name="height-request">60</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">True</property>
+                <property name="resize-mode">immediate</property>
               </object>
               <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
                 <property name="position">0</property>
               </packing>
             </child>
@@ -411,8 +413,10 @@
             </child>
           </object>
           <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
+            <property name="expand">True</property>
+            <property name="fill">False</property>
+            <property name="padding">1</property>
+            <property name="pack-type">end</property>
             <property name="position">5</property>
           </packing>
         </child>

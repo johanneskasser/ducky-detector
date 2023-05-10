@@ -115,7 +115,7 @@ void DuckyDetectorGui::showInfoDialog() {
     Gtk::MessageDialog dialog(*this, "Please insert usb drive and press OK.");
     dialog.set_title("Information");
     dialog.set_decorated(false);
-    dialog.set_position(Gtk::WIN_POS_CENTER_ON_PARENT);
+    dialog.set_position(Gtk::WIN_POS_CENTER);
     dialog.run();
 }
 

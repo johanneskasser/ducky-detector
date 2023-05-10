@@ -1,31 +1,22 @@
 #!/bin/bash
 
-total_steps=10
+width=40
+steps=8
+completedSteps=0
 
 prog() {
-    local w=80 p=0;
-    printf -v dots "%*s" "$(( $p*$w/100 ))" ""; dots=\${dots// /.};
-    printf -v progress "|%-*s|" "$w" "$dots";
-    printf "\r\e[K%s" "$progress";
-    for i in $(seq 1 $total_steps); do
-        printf ".";
-    done
-}
+  completedSteps=$((completedSteps + 1))
+  percentage=$(bc <<<"scale=2; $completedSteps / $steps")
+  percentageToPrint=$(bc <<<"scale=2; $percentage * 100")
+  stepsToPrint=$(printf "%.0f" "$(bc <<<"scale=2; $width * $percentage")")
+  remainingSteps=$((width - stepsToPrint))
 
-completedStep() {
-    p=$((p+1))
-    printf -v dots "%*s" "$(( $p*$w/100 ))" ""; dots=\${dots// /.};
-    printf -v progress "|%-*s|" "$w" "$dots";
-    printf "\r\e[K%s" "$progress";
-    for i in $(seq 1 $total_steps); do
-        if [ $i -le $p ]; then
-            printf ".";
-        else
-            printf " ";
-        fi
-    done
-}
+  echo -ne '['$(for i in $(seq 1 $stepsToPrint); do printf "#"; done) $(for i in $(seq 1 $remainingSteps); do printf '_'; done) '] ('$(echo $percentageToPrint)'%)\r'
 
+  if [ $completedSteps -eq $steps ]; then
+    echo -ne '\n'
+  fi
+}
 
 function installTouchScreen {
   echo "=== Configuration of Touchscreen ==="
@@ -82,7 +73,7 @@ function enableAutoStartup {
 
 user=$(whoami)
 
-prog
+update_bar 0
 
 if [ "$user" != "root" ]; then
   echo "=== FATAL ERROR: You need to execute this script as root user! ==="
@@ -92,23 +83,23 @@ else
   echo "--- Installing required packages (This may take a while)... ---"
 
   sudo apt-get update &>>./debug.txt
-  completedStep
+  prog
   sudo apt-get upgrade &>>./debug.txt
-  completedStep
+  prog
 
   sudo apt-get --assume-yes install g++ &>>./debug.txt
-  completedStep
+  prog
   sudo apt-get --assume-yes install clamav &>>./debug.txt
-  completedStep
+  prog
   sudo apt-get --assume-yes install libclamav-dev &>>./debug.txt
-  completedStep
+  prog
   sudo apt-get --assume-yes install llibgtkmm-3.0-dev &>>./debug.txt
-  completedStep
+  prog
 
   mkdir -p /mnt/mount
-  completedStep
+  prog
   sudo make &>>./debug.txt
-  completedStep
+  prog
 
   echo "=== Installation Complete. Do you want to configure the touchscreen display? ==="
   echo "(1) yes"
@@ -120,7 +111,6 @@ else
   else
     echo "Proceeding to automatic Start"
   fi
-  completedStep
 
   echo "=== Do you want to start the ducky-detector everytime the raspberry pi is started? ==="
   echo "(1) yes"
@@ -137,5 +127,4 @@ else
   else
     echo "=== Something went wrong! Please Consult the debug.txt file for further information! ==="
   fi
-  completedStep
 fi
