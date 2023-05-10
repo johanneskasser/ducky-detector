@@ -28,6 +28,7 @@ class DuckyDetectorApplicationGui : public Gtk::Application {
 
         DuckyDetectorGui* createApplicationWindow();
         void runApplication();
+        void runApplicationInterceptor();
         void onStartScanProcessAndCheckSystemRequirements();
         void onUsbPreCheck();
         void onInitialPeripheryAnalysis();

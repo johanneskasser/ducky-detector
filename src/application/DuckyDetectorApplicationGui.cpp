@@ -1,18 +1,19 @@
 #include "DuckyDetectorApplicationGui.hpp"
 
 DuckyDetectorApplicationGui::DuckyDetectorApplicationGui() : Gtk::Application("fh.campuswien.duckyDetector",
-    Gio::APPLICATION_FLAGS_NONE) {
+                                                                              Gio::APPLICATION_FLAGS_NONE) {
 }
 
 Glib::RefPtr<DuckyDetectorApplicationGui> DuckyDetectorApplicationGui::create() {
     return Glib::RefPtr<DuckyDetectorApplicationGui>(new DuckyDetectorApplicationGui());
 }
 
-DuckyDetectorGui* DuckyDetectorApplicationGui::createApplicationWindow() {
+DuckyDetectorGui *DuckyDetectorApplicationGui::createApplicationWindow() {
     applicationWindow = new DuckyDetectorGui();
     add_window(*applicationWindow);
-    applicationWindow->signal_hide().connect(sigc::bind<Gtk::Window*>(sigc::mem_fun(*this,
-        &DuckyDetectorApplicationGui::onHideWindow), applicationWindow));
+    applicationWindow->signal_hide().connect(sigc::bind<Gtk::Window *>(sigc::mem_fun(*this,
+                                                                                     &DuckyDetectorApplicationGui::onHideWindow),
+                                                                       applicationWindow));
 
     runApplication();
 
@@ -36,28 +37,34 @@ void DuckyDetectorApplicationGui::runApplication() {
     applicationWindow->endLoading();
 
     okButtonSignalConnection.disconnect();
-    okButtonSignalConnection = applicationWindow->okButton->signal_clicked().connect(sigc::mem_fun(*this,
-                                                                                                   (applicationWindow->returnFastRunStatus() ?
-                                                                                                   &DuckyDetectorApplicationGui::onStartScanProcessAndCheckSystemRequirements :
-                                                                                                   &DuckyDetectorApplicationGui::onFastAnalysis)));
+    okButtonSignalConnection = applicationWindow->okButton->signal_clicked().connect(
+            sigc::mem_fun(*this, &DuckyDetectorApplicationGui::runApplicationInterceptor));
 
     detailsButtonSignalConnection.disconnect();
 
     cancelButtonSignalConnection.disconnect();
     cancelButtonSignalConnection = applicationWindow->cancelButton->signal_clicked().connect(sigc::mem_fun(*this,
-        &DuckyDetectorApplicationGui::onCancelButtonClicked));
+                                                                                                           &DuckyDetectorApplicationGui::onCancelButtonClicked));
 
+}
+
+void DuckyDetectorApplicationGui::runApplicationInterceptor() {
+    if (applicationWindow->returnFastRunStatus()) {
+        onFastAnalysis();
+    } else {
+        onStartFileExtensionAnalysis();
+    }
 }
 
 void DuckyDetectorApplicationGui::onStartScanProcessAndCheckSystemRequirements() {
     applicationWindow->setModuleName("Start Process and Check System Requirements");
 
     detailsButtonSignalConnection = applicationWindow->detailsButton->signal_clicked().connect(sigc::mem_fun(*this,
-        &DuckyDetectorApplicationGui::onPreparationDetails));
+                                                                                                             &DuckyDetectorApplicationGui::onPreparationDetails));
 
     cancelButtonSignalConnection.disconnect();
     cancelButtonSignalConnection = applicationWindow->cancelButton->signal_clicked().connect(sigc::mem_fun(*this,
-        &DuckyDetectorApplicationGui::onReset));
+                                                                                                           &DuckyDetectorApplicationGui::onReset));
 
     if (!scanner.startCheckSystemRequirements()) {
         applicationWindow->showError("Fixing System Requirements FAILED!");
@@ -74,7 +81,7 @@ void DuckyDetectorApplicationGui::onUsbPreCheck() {
 
     detailsButtonSignalConnection.disconnect();
     detailsButtonSignalConnection = applicationWindow->detailsButton->signal_clicked().connect(sigc::mem_fun(*this,
-        &DuckyDetectorApplicationGui::onUsbPreCheckDetails));
+                                                                                                             &DuckyDetectorApplicationGui::onUsbPreCheckDetails));
 
     if (!scanner.startUsbPreCheck()) {
         applicationWindow->showError("Pre Check FAILED!");
@@ -93,7 +100,7 @@ void DuckyDetectorApplicationGui::onInitialPeripheryAnalysis() {
 
     detailsButtonSignalConnection.disconnect();
     detailsButtonSignalConnection = applicationWindow->detailsButton->signal_clicked().connect(sigc::mem_fun(*this,
-        &DuckyDetectorApplicationGui::onPeripheryDetails));
+                                                                                                             &DuckyDetectorApplicationGui::onPeripheryDetails));
 
     applicationWindow->showInfoDialog();
     result = scanner.startPeripheryAnalysis(true);
@@ -129,7 +136,7 @@ void DuckyDetectorApplicationGui::onSecondPeripheryAnalysis() {
 
         okButtonSignalConnection.disconnect();
         okButtonSignalConnection = applicationWindow->okButton->signal_clicked().connect(sigc::mem_fun(*this,
-            &DuckyDetectorApplicationGui::onStartPartitionAnalysis));
+                                                                                                       &DuckyDetectorApplicationGui::onStartPartitionAnalysis));
     }
 }
 
@@ -140,7 +147,7 @@ void DuckyDetectorApplicationGui::onStartPartitionAnalysis() {
 
     detailsButtonSignalConnection.disconnect();
     detailsButtonSignalConnection = applicationWindow->detailsButton->signal_clicked().connect(sigc::mem_fun(*this,
-        &DuckyDetectorApplicationGui::onPartitionDetails));
+                                                                                                             &DuckyDetectorApplicationGui::onPartitionDetails));
 
     applicationWindow->startLoading();
     result = scanner.startPartitionAnalysis();
@@ -157,7 +164,7 @@ void DuckyDetectorApplicationGui::onStartPartitionAnalysis() {
 
         okButtonSignalConnection.disconnect();
         okButtonSignalConnection = applicationWindow->okButton->signal_clicked().connect(sigc::mem_fun(*this,
-            &DuckyDetectorApplicationGui::onStartFileExtensionAnalysis));
+                                                                                                       &DuckyDetectorApplicationGui::onStartFileExtensionAnalysis));
     }
 }
 
@@ -168,7 +175,7 @@ void DuckyDetectorApplicationGui::onStartFileExtensionAnalysis() {
 
     detailsButtonSignalConnection.disconnect();
     detailsButtonSignalConnection = applicationWindow->detailsButton->signal_clicked().connect(sigc::mem_fun(*this,
-        &DuckyDetectorApplicationGui::onFileExtensionDetails));
+                                                                                                             &DuckyDetectorApplicationGui::onFileExtensionDetails));
 
     applicationWindow->startLoading();
     result = scanner.startFileExtensionAnalysis();
@@ -185,7 +192,7 @@ void DuckyDetectorApplicationGui::onStartFileExtensionAnalysis() {
 
         okButtonSignalConnection.disconnect();
         okButtonSignalConnection = applicationWindow->okButton->signal_clicked().connect(sigc::mem_fun(*this,
-            &DuckyDetectorApplicationGui::onStartMalwareAnalysis));
+                                                                                                       &DuckyDetectorApplicationGui::onStartMalwareAnalysis));
     }
 }
 
@@ -196,7 +203,7 @@ void DuckyDetectorApplicationGui::onStartMalwareAnalysis() {
 
     detailsButtonSignalConnection.disconnect();
     detailsButtonSignalConnection = applicationWindow->detailsButton->signal_clicked().connect(sigc::mem_fun(*this,
-        &DuckyDetectorApplicationGui::onMalwareDetails));
+                                                                                                             &DuckyDetectorApplicationGui::onMalwareDetails));
 
     applicationWindow->startLoading();
     result = scanner.startMalwareAnalysis();
@@ -213,7 +220,7 @@ void DuckyDetectorApplicationGui::onStartMalwareAnalysis() {
 
         okButtonSignalConnection.disconnect();
         okButtonSignalConnection = applicationWindow->okButton->signal_clicked().connect(sigc::mem_fun(*this,
-            &DuckyDetectorApplicationGui::onReset));
+                                                                                                       &DuckyDetectorApplicationGui::onReset));
     }
 }
 
@@ -222,15 +229,16 @@ void DuckyDetectorApplicationGui::onReset() {
 
     okButtonSignalConnection.disconnect();
     okButtonSignalConnection = applicationWindow->okButton->signal_clicked().connect(sigc::mem_fun(*this,
-        &DuckyDetectorApplicationGui::runApplication));
+                                                                                                   &DuckyDetectorApplicationGui::runApplication));
 
     cancelButtonSignalConnection.disconnect();
     cancelButtonSignalConnection = applicationWindow->cancelButton->signal_clicked().connect(sigc::mem_fun(*this,
-        &DuckyDetectorApplicationGui::runApplication));
+                                                                                                           &DuckyDetectorApplicationGui::runApplication));
 }
 
 void DuckyDetectorApplicationGui::onPreparationDetails() {
-    applicationWindow->showDetailsDialog(PrintingDetailsService::getPreparationDetailsForGui(scanner.getPreparationHelperDetails()));
+    applicationWindow->showDetailsDialog(
+            PrintingDetailsService::getPreparationDetailsForGui(scanner.getPreparationHelperDetails()));
 }
 
 void DuckyDetectorApplicationGui::onUsbPreCheckDetails() {
@@ -238,25 +246,32 @@ void DuckyDetectorApplicationGui::onUsbPreCheckDetails() {
 }
 
 void DuckyDetectorApplicationGui::onPeripheryDetails() {
-    applicationWindow->showDetailsDialog(PrintingDetailsService::getPeripheryAnalysisDetailsForGui(scanner.getUsbPeripheryAnalyserDetails(),
-        scanner.getDevice()));
+    applicationWindow->showDetailsDialog(
+            PrintingDetailsService::getPeripheryAnalysisDetailsForGui(scanner.getUsbPeripheryAnalyserDetails(),
+                                                                      scanner.getDevice()));
 }
 
 void DuckyDetectorApplicationGui::onPartitionDetails() {
-    applicationWindow->showDetailsDialog(PrintingDetailsService::getPartitionAnalysisDetailsForGui(scanner.getPartitionAnalyserPartitionCounterDetails(),
-        scanner.getFilesystems(), scanner.getPartitionAnalyserFlagsDetails()));
+    applicationWindow->showDetailsDialog(PrintingDetailsService::getPartitionAnalysisDetailsForGui(
+            scanner.getPartitionAnalyserPartitionCounterDetails(),
+            scanner.getFilesystems(), scanner.getPartitionAnalyserFlagsDetails()));
 }
 
 void DuckyDetectorApplicationGui::onFileExtensionDetails() {
-    applicationWindow->showDetailsDialog(PrintingDetailsService::getFileExtensionAnalysisDetailsForGui(scanner.getFileExtensionAnalyserFileCounterDetails(),
-        scanner.getFileExtensionAnalyserBlackListedFilesDetails()));
+    applicationWindow->showDetailsDialog(PrintingDetailsService::getFileExtensionAnalysisDetailsForGui(
+            scanner.getFileExtensionAnalyserFileCounterDetails(),
+            scanner.getFileExtensionAnalyserBlackListedFilesDetails()));
 }
 
 void DuckyDetectorApplicationGui::onMalwareDetails() {
-    applicationWindow->showDetailsDialog(PrintingDetailsService::getVirusAnalysisDetailsForGui(scanner.getVirusAnalyserFileCounterDetails(),
-        scanner.getVirusAnalyserNumberOfSignatureDetails(), scanner.getVirusAnalyserDataScannedInMbDetails(),
-        scanner.getVirusAnalyserInfectedFilesCounterDetails(), scanner.getVirusAnalyserFoundVirusNamesDetails(),
-        scanner.getVirusAnalyserInfectedFilesDetails(), scanner.getVirusAnalyserEngineStatusDetails()));
+    applicationWindow->showDetailsDialog(
+            PrintingDetailsService::getVirusAnalysisDetailsForGui(scanner.getVirusAnalyserFileCounterDetails(),
+                                                                  scanner.getVirusAnalyserNumberOfSignatureDetails(),
+                                                                  scanner.getVirusAnalyserDataScannedInMbDetails(),
+                                                                  scanner.getVirusAnalyserInfectedFilesCounterDetails(),
+                                                                  scanner.getVirusAnalyserFoundVirusNamesDetails(),
+                                                                  scanner.getVirusAnalyserInfectedFilesDetails(),
+                                                                  scanner.getVirusAnalyserEngineStatusDetails()));
 }
 
 void DuckyDetectorApplicationGui::onCancelButtonClicked() {
@@ -268,7 +283,7 @@ void DuckyDetectorApplicationGui::onCancelButtonClicked() {
     applicationWindow->unset_application();
 }
 
-void DuckyDetectorApplicationGui::onHideWindow(Gtk::Window* window) {
+void DuckyDetectorApplicationGui::onHideWindow(Gtk::Window *window) {
     delete window;
 }
 
@@ -288,65 +303,83 @@ void DuckyDetectorApplicationGui::onFastAnalysis() {
     applicationWindow->setModuleName("Fast Analysis");
     applicationWindow->startLoading();
 
-
-    int firstPeripheryAnalysisResult;
-
-    applicationWindow->showInfoDialog();
-    firstPeripheryAnalysisResult = scanner.startPeripheryAnalysis(true);
-
-    if (firstPeripheryAnalysisResult != 0) {
-        applicationWindow->showError("Periphery Analysis FAILED!");
-        applicationWindow->setText(PrintingResultService::getPeripheryAnalysisResultForGui(firstPeripheryAnalysisResult));
+    if (!scanner.startCheckSystemRequirements()) {
+        applicationWindow->showError("Fixing System Requirements FAILED!");
+        applicationWindow->setText(PrintingResultService::getCheckSystemRequirementResultForGui());
         onReset();
     } else {
         applicationWindow->setProgress(step);
-        int secondPeripheryAnalysis;
-        secondPeripheryAnalysis = scanner.startPeripheryAnalysis(false);
-
-        if (secondPeripheryAnalysis != 0) {
-            applicationWindow->showError("Periphery Analysis FAILED!");
-            applicationWindow->setText(PrintingResultService::getPeripheryAnalysisResultForGui(secondPeripheryAnalysis));
+        if (!scanner.startUsbPreCheck()) {
+            applicationWindow->showError("Pre Check FAILED!");
+            applicationWindow->setText(PrintingResultService::getUsbPreCheckResultForGui());
             onReset();
         } else {
             applicationWindow->setProgress(step);
-            int partAnalysis;
+            applicationWindow->showInfoDialog();
+            int firstPeripheryAnalysisResult;
+            firstPeripheryAnalysisResult = scanner.startPeripheryAnalysis(true);
 
-            partAnalysis = scanner.startPartitionAnalysis();
-
-            if(partAnalysis != 0) {
-                applicationWindow->showError("Partition Analysis FAILED!");
-                applicationWindow->setText(PrintingResultService::getPartitionAnalysisResultForGui(partAnalysis));
+            if (firstPeripheryAnalysisResult != 0) {
+                applicationWindow->showError("Periphery Analysis FAILED!");
+                applicationWindow->setText(
+                        PrintingResultService::getPeripheryAnalysisResultForGui(firstPeripheryAnalysisResult));
                 onReset();
             } else {
                 applicationWindow->setProgress(step);
-                int fileExtAnalysis;
-                fileExtAnalysis = scanner.startFileExtensionAnalysis();
+                int secondPeripheryAnalysis;
+                secondPeripheryAnalysis = scanner.startPeripheryAnalysis(false);
 
-                if(fileExtAnalysis != 0) {
-                    applicationWindow->showError("File Extension Analysis FAILED!");
-                    applicationWindow->setText(PrintingResultService::getFileExtensionAnalysisResultForGui(fileExtAnalysis));
+                if (secondPeripheryAnalysis != 0) {
+                    applicationWindow->showError("Periphery Analysis FAILED!");
+                    applicationWindow->setText(
+                            PrintingResultService::getPeripheryAnalysisResultForGui(secondPeripheryAnalysis));
                     onReset();
                 } else {
                     applicationWindow->setProgress(step);
-                    int malwareAnalysis;
-                    malwareAnalysis = scanner.startMalwareAnalysis();
+                    int partAnalysis;
 
-                    if(malwareAnalysis != 0) {
-                        applicationWindow->showError("Virus Analysis FAILED!");
-                        applicationWindow->setText(PrintingResultService::getVirusAnalysisResultForGui(malwareAnalysis));
+                    partAnalysis = scanner.startPartitionAnalysis();
+
+                    if (partAnalysis != 0) {
+                        applicationWindow->showError("Partition Analysis FAILED!");
+                        applicationWindow->setText(
+                                PrintingResultService::getPartitionAnalysisResultForGui(partAnalysis));
                         onReset();
                     } else {
-                        applicationWindow->setText(PrintingService::getProcessWentGoodTextForGui());
+                        applicationWindow->setProgress(step);
+                        int fileExtAnalysis;
+                        fileExtAnalysis = scanner.startFileExtensionAnalysis();
 
-                        okButtonSignalConnection.disconnect();
-                        okButtonSignalConnection = applicationWindow->okButton->signal_clicked().connect(sigc::mem_fun(*this,
-                                                                                                                       &DuckyDetectorApplicationGui::onReset));
+                        if (fileExtAnalysis != 0) {
+                            applicationWindow->showError("File Extension Analysis FAILED!");
+                            applicationWindow->setText(
+                                    PrintingResultService::getFileExtensionAnalysisResultForGui(fileExtAnalysis));
+                            onReset();
+                        } else {
+                            applicationWindow->setProgress(step);
+                            int malwareAnalysis;
+                            malwareAnalysis = scanner.startMalwareAnalysis();
+
+                            if (malwareAnalysis != 0) {
+                                applicationWindow->showError("Virus Analysis FAILED!");
+                                applicationWindow->setText(
+                                        PrintingResultService::getVirusAnalysisResultForGui(malwareAnalysis));
+                                onReset();
+                            } else {
+                                applicationWindow->setText(PrintingService::getProcessWentGoodTextForGui());
+
+                                okButtonSignalConnection.disconnect();
+                                okButtonSignalConnection = applicationWindow->okButton->signal_clicked().connect(
+                                        sigc::mem_fun(*this,
+                                                      &DuckyDetectorApplicationGui::onReset));
+                            }
+                        }
+
                     }
                 }
 
             }
         }
-
     }
 
 
