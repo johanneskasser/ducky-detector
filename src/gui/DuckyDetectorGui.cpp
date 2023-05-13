@@ -1,5 +1,8 @@
 #include "DuckyDetectorGui.hpp"
-#include <string> 
+#include <string>
+#include <gtkmm/main.h>
+#include <future>
+
 using namespace std;
 
 DuckyDetectorGui::DuckyDetectorGui() {
@@ -188,6 +191,21 @@ void DuckyDetectorGui::startLoading() {
 void DuckyDetectorGui::endLoading() {
     (*loadingIndicator).stop();
     (*loadingIndicator).hide();
+}
+
+template<typename Func>
+int DuckyDetectorGui::executeBackgroundTask(Func func) {
+    startLoading();
+
+    std::future<int> future = std::async(std::launch::async, func);
+
+    while(future.wait_for(std::chrono::milliseconds(100)) != std::future_status::ready) {
+        while (Gtk::Main::events_pending()) {
+            Gtk::Main::iteration();
+        }
+    }
+    endLoading();
+    return future.get();
 }
 
 void DuckyDetectorGui::resetModuleNameBackground() {

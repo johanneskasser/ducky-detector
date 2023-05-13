@@ -13,6 +13,8 @@
 #include <gtkmm/textview.h>
 #include <gtkmm/builder.h>
 #include <gtkmm/spinner.h>
+#include <thread>
+#include <functional>
 #include <iostream>
 
 class DuckyDetectorGui: public Gtk::ApplicationWindow {
@@ -23,8 +25,6 @@ class DuckyDetectorGui: public Gtk::ApplicationWindow {
 
         DuckyDetectorGui();
         virtual ~DuckyDetectorGui();
-
-        void hideInfoBar();
         void showDetailsDialog(const std::string& details);
         void showError(const std::string& text);
         void showSuccess(const std::string& text);
@@ -40,7 +40,9 @@ class DuckyDetectorGui: public Gtk::ApplicationWindow {
         void startLoading();
         void endLoading();
         bool returnFastRunStatus();
-        //Gtk::ApplicationWindow* getApplicationWindow();
+        template<typename Func>
+        int executeBackgroundTask(Func func);
+    //Gtk::ApplicationWindow* getApplicationWindow();
 
     private:
         std::string title = "Rubber Ducky Detector";

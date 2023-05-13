@@ -177,9 +177,9 @@ void DuckyDetectorApplicationGui::onStartFileExtensionAnalysis() {
     detailsButtonSignalConnection = applicationWindow->detailsButton->signal_clicked().connect(sigc::mem_fun(*this,
                                                                                                              &DuckyDetectorApplicationGui::onFileExtensionDetails));
 
-    applicationWindow->startLoading();
-    result = scanner.startFileExtensionAnalysis();
-    applicationWindow->endLoading();
+    //applicationWindow->startLoading();
+    result = applicationWindow->executeBackgroundTask(scanner.startFileExtensionAnalysis());
+    //applicationWindow->endLoading();
 
     if (result != 0) {
         applicationWindow->showError("File Extension Analysis FAILED!");
