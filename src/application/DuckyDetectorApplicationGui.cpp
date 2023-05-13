@@ -103,7 +103,9 @@ void DuckyDetectorApplicationGui::onInitialPeripheryAnalysis() {
                                                                                                              &DuckyDetectorApplicationGui::onPeripheryDetails));
 
     applicationWindow->showInfoDialog();
-    result = scanner.startPeripheryAnalysis(true);
+    result = applicationWindow->executeBackgroundTask([this](){
+        return scanner.startPeripheryAnalysis(true);
+    });
 
     if (result != 0) {
         applicationWindow->showError("Periphery Analysis FAILED!");
@@ -120,9 +122,9 @@ void DuckyDetectorApplicationGui::onSecondPeripheryAnalysis() {
 
     int result;
 
-    applicationWindow->startLoading();
-    result = scanner.startPeripheryAnalysis(false);
-    applicationWindow->endLoading();
+    result = applicationWindow->executeBackgroundTask([this](){
+        return scanner.startPeripheryAnalysis(false);
+    });
 
     if (result != 0) {
         applicationWindow->showError("Periphery Analysis FAILED!");
@@ -149,9 +151,9 @@ void DuckyDetectorApplicationGui::onStartPartitionAnalysis() {
     detailsButtonSignalConnection = applicationWindow->detailsButton->signal_clicked().connect(sigc::mem_fun(*this,
                                                                                                              &DuckyDetectorApplicationGui::onPartitionDetails));
 
-    applicationWindow->startLoading();
-    result = scanner.startPartitionAnalysis();
-    applicationWindow->endLoading();
+    result = applicationWindow->executeBackgroundTask([this](){
+        return scanner.startPartitionAnalysis();
+    });
 
     if (result != 0) {
         applicationWindow->showError("Partition Analysis FAILED!");
@@ -178,7 +180,10 @@ void DuckyDetectorApplicationGui::onStartFileExtensionAnalysis() {
                                                                                                              &DuckyDetectorApplicationGui::onFileExtensionDetails));
 
     //applicationWindow->startLoading();
-    result = applicationWindow->executeBackgroundTask(scanner.startFileExtensionAnalysis());
+    result = applicationWindow->executeBackgroundTask([this](){
+        return scanner.startFileExtensionAnalysis();
+    });
+
     //applicationWindow->endLoading();
 
     if (result != 0) {
@@ -205,9 +210,9 @@ void DuckyDetectorApplicationGui::onStartMalwareAnalysis() {
     detailsButtonSignalConnection = applicationWindow->detailsButton->signal_clicked().connect(sigc::mem_fun(*this,
                                                                                                              &DuckyDetectorApplicationGui::onMalwareDetails));
 
-    applicationWindow->startLoading();
-    result = scanner.startMalwareAnalysis();
-    applicationWindow->endLoading();
+    result = applicationWindow->executeBackgroundTask([this](){
+        return scanner.startMalwareAnalysis();
+    });
 
     if (result != 0) {
         applicationWindow->showError("Virus Analysis FAILED!");
