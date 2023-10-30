@@ -143,7 +143,7 @@ int PrintingService::printContinueWithNextStageForTerminal(const std::string& cu
 }
 
 std::string PrintingService::getProcessWentGoodTextForGui() {
-    return " Whole analysis process went good.";
+    return " Whole analysis process went good. No Threats detected.";
 }
 
 void PrintingService::printProcessWentGoodTextForTerminal(const std::string& currentAnalysisName) {

@@ -20,6 +20,7 @@ add_subdirectory(src/application)
 add_subdirectory(src/util)
 add_subdirectory(src/gui)
 
+# link the libraries
 target_link_libraries(duckyDetector Scanner PreparationHelper UsbPeripheryAnalyser PartitionAnalyser
         FileExtensionAnalyser VirusAnalyser DuckyDetectorGui Device FileHandler Interface PrintingService Setup
         usb-1.0 clamav ${GTKMM_LIBRARIES})

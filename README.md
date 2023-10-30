@@ -1,28 +1,44 @@
 # Ducky Detector
 
-Dieses Projekt erweitert den DuckyDetektor von Philipp Lohse um einen Antivirus
-bzw. Malware Scan und um eine grafische Oberfläche.
+Dieses Projekt erweitert den DuckyDetektor von Philipp Lohse und Dennis La um eine verbesserte grafische Oberfläche und eine stark vereinfachte Installation.
 
 ## Erste Schritte
 
-Diese Instruktionen werden dich zu einer funktionsfühigen Kopie dieses Projekts
-verschaffen, welches auf einer lokalen Umgebung für Entwicklungs- und 
-Testzwecke. Für den Einsatz auf einem Live System, wende dich bitte an den
-Abschnitt ["Bereitstellung"](#Bereitstellung).
+Diese Instruktionen werden Dich zu einer funktionsfühigen Kopie dieses Projekts verschaffen, welches auf einer lokalen Umgebung für Entwicklungs- und  Testzwecke läuft. Für den Einsatz auf einem Live System wende Dich an den Abschnitt ["Schnelle Installation"](#Schnelle_Installation). Falls Du die Konfiguration lieber manuell übernehmen möchtest, wende Dich bitte an den Abschnitt ["Bereitstellung"](#Bereitstellung).
 
 ### Voraussetzung
 
 - Raspberry Pi 4 Model B
-    - 4 GB RAM
+    - min. 4 GB RAM
 - Raspberry Pi OS (32-bit) mit Desktop
-    - Version: Mai 2020
-    - Release Datum: 2020-05-27
-    - Kernel Version: 5.4
+    - Version: min. Mai 2020
+    - Release Datum: min. 2020-05-27
+    - Kernel Version: min. 5.4
+- Alternativ: Custom OS Image (siehe ["Schnelle Installation"](#Schnelle_Installation))
 - Optional: 3,2"/3,5" Touchscreen Display
 - Optional: Schutzhülle für den Raspberry Pi
-- balenaEtcher oder ähnliches
+- [Raspberry Pi Imager](https://www.raspberrypi.com/software/)
 
-### Installation
+
+### <a name="Schnelle_Installation"></a>Schnelle Installation
+
+Unter diesem [Link](https://drive.google.com/file/d/1rc4VAEZ_PBI_TmvLSsJv3klG4QjUyw9A/view?usp=sharing) ist ein Image verfügbar, auf dem der Rubber Ducky Detector mit konfiguriertem JoyIT-3,2"-Touchscreen vorinstalliert ist. Das Image kann mit dem [Raspberry Pi Imager](https://www.raspberrypi.com/software/) Tool auf eine SD-Karte übertragen werden. Unter dem Reiter "OS wählen" kann mit der Option "Eigenes Image" die bereitgestellte .img-Datei ausgewählt und geflashed werden.
+
+![Raspberry Pi Imager](https://i.imgur.com/REnrDGa.png)
+
+Die SD-Karte muss vor dem Start des RasPi in den Slot eingesteckt werden.
+
+Credentials für img Datei:
+
+Username: `pi`
+Password: `duckyDetector`
+
+#### Troubleshooting der schnellen Installation
+
+Alternativ ist im Repository ein `install.sh` Skript enthalten, der automatisch die Konfiguration des Ducky Detectors und die Installation der notwendigen Abhängigkeiten vornimmt. Um den Skript ausführbar zu machen, muss zuvor der Befehl `sudo chmod +x ./install.sh` ausgeführt werden. Zur Ausführung des Skripts sind Root-Rechte nötig. Eventuelle Debug-Informationen sind der während der Laufzeit erstellten `debug.txt` Datei zu entnehmen.
+
+
+### Manuelle Installation
 
 - das Betriebssystem Raspberry Pi OS auf eine Speicherkarte flashen z.B. mit balenaEtcher
 - um auf den Raspberry Pi über ssh zuzugreifen muss folgendes durchgeführt werden:
@@ -70,8 +86,7 @@ sudo apt-get install g++ libusb-1.0-0-dev clamav libclamav-dev libgtkmm-3.0-dev
 ### Optional: Touchscreen einstellen
 
 Für dieses Projekt wurde ein 3,2" Touchscreen Display von joy-it verwendet.
-Folgende Anleitung basiert auf die Verwendung eines 3,2" Touchscreen
-Displays von joy-it.
+Folgende Anleitung basiert auf die Verwendung eines 3,2" Touchscreen Displays von joy-it.
 
 1. Datei config.txt bearbeiten
     - in dieser Datei muss folgender Inhalt eingefügt werden
@@ -165,8 +180,7 @@ Displays von joy-it.
 
 ### Optional: Ausführen des Programmes nach Systemstart
 
-Wird ein Display verwendet kann das Programm bereits nach dem Systemstart
-automatisch ausgeführt werden. Dazu muss folgendes getan werden:
+Wird ein Display verwendet kann das Programm bereits nach dem Systemstart automatisch ausgeführt werden. Dazu muss folgendes getan werden:
 
 - einen Ordner `autostart` erstellen
 
@@ -188,6 +202,7 @@ Exec=sudo /home/pi/duckyDetector/DuckyDetector
 ## Implementiert mit
 
 * [CLion](https://www.jetbrains.com/de-de/clion/) - IDEA
+* [Glade](https://glade.gnome.org/) - Tool für GTK+ Interface Design
 * [Make](https://www.gnu.org/software/make/) - Build Management Tool
 * [libusb](https://libusb.info/) - Bibliothek für den Zugriff auf USB Geräte
 * [ClamAv](https://www.clamav.net/) - Open Source Antivirus Engine
@@ -197,43 +212,61 @@ Exec=sudo /home/pi/duckyDetector/DuckyDetector
 
 * **Philipp Lohse** - *Initiale Arbeit*
 * **Dennis La** - *Weiterführende Arbeit*
+* **Johannes Kasser** - *Usability-Verbesserungen*
+* **Joseph Hangstein** - *Usability-Verbesserungen*
 
 ## Weitere Informationen
 - für die Verwendung mit CLion wurden `CMakeLists.txt` Dateien erstellt
-    - diese Dateien erlauben die Verwendung des code insight features`
+    - diese Dateien erlauben die Verwendung des code insight features
 
 ## Weiterführende Links
 - [ssh und WIFI über Speicherkarte aktivieren](https://medium.com/@nikosmouroutis/how-to-setup-your-raspberry-pi-and-connect-to-it-through-ssh-and-your-local-wifi-ac53d3839be9)
 - [Touchscreen einstellen](https://joy-it.net/files/files/Produkte/RB-TFT3.2-V2/RB-TFT-Manual_04082020.pdf)
-- [Autmount deaktivieren](https://www.raspberrypi.org/forums/viewtopic.php?t=91677)
+- [Automount deaktivieren](https://www.raspberrypi.org/forums/viewtopic.php?t=91677)
 - [Programm starten nach Systemstart](https://learn.sparkfun.com/tutorials/how-to-run-a-raspberry-pi-program-on-startup/all)
 
 ####### English below
 
-# DuckyDetector version 2
+# DuckyDetector version 
 
-This project enhances the DuckyDetector by Philipp Lohse by an antivirus or
-malware scan and a graphical user interface.
+This project enhances the DuckyDetector by Philipp Lohse and Dennis La by introducing an improved User Interface and a significantly simplified setup process.
 
 ## Getting started
 
-These instructions will get you a copy of the project up and running on your
-local machine for development and testing purposes. See deployment for notes on
-how to deploy the project on a live system.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See ["Quick Start"](#Quick_Start) on how to deploy the project on a live system. If you prefer to configure the system manually, please refer to the section ["Manual Installation"](#Manual_Installation).
 
 ### Prerequisites
 
 - Raspberry Pi 4 Model B
-    - 4 GB RAM
+    - at least 4 GB RAM
 - Raspberry Pi OS (32-bit) with desktop
-    - Version: May 2020
-    - Release date: 2020-05-27
-    - Kernel version: 5.4
+    - Version: at least May 2020
+    - Release date: at least 2020-05-27
+    - Kernel version: at least 5.4
+- Alternatively: Custom OS Image (for reference, see ["Quick Start"](#Quick_Start))
 - Optional: 3,2"/3,5" Touchscreen Display
 - Optional: Case for the Raspberry Pi
-- balenaEtcher or similar
+- [Raspberry Pi Imager](https://www.raspberrypi.com/software/)
 
-### Installing
+
+### <a name="Quick_Start"></a>Quick Start
+
+A custom image is available under this [link](https://drive.google.com/file/d/1rc4VAEZ_PBI_TmvLSsJv3klG4QjUyw9A/view?usp=sharing). The image contains a pre-installed version of the "Ducky Detector" utility, with the JoyIT 3,2" touchscreen already configured. The image can be flashed onto a SD card with the tool [Raspberry Pi Imager](https://www.raspberrypi.com/software/). The drop-down menu "Choose OS" contains the option "Custom Image" to choose flash the provided .img file.
+
+![Raspberry Pi Imager](https://i.imgur.com/REnrDGa.png)
+
+Before booting the Raspberry Pi, the SD card needs to be inserted into the SD slot.
+
+Credentials for custom image:
+
+Username: `pi`
+Password: `duckyDetector`
+
+#### Troubleshooting quick start
+
+Alternatively, the repository contains the script `install.sh` that automatically configures the Ducky Detector utility and installs all necessary dependencies. To make the file executable, type `sudo chmod +x ./install.sh`. The user running the script needs root privilege. Debug informations are written to the file `debug.txt` that is created at runtime.
+
+### <a name="Manual_Installation"></a>Manual Installation
 
 - Flash the operating system Raspberry Pi OS on a memory card e.g. balenaEtcher
 - To access the Raspberry Pi via ssh the following needs to be done:
@@ -374,8 +407,7 @@ steps are based on the usage of the 3.2" Touchscreen Display of joy-it.
 
 ### Optional: Run application after startup
 
-If the application is used with a display the application can be started right
-after booting the system with the following steps:
+If the application is used with a display the application can be started right after booting the system with the following steps:
 
 - create a directory `autostart`
 
@@ -397,6 +429,7 @@ Exec=sudo /home/pi/duckyDetector/DuckyDetector
 ## Built With
 
 * [CLion](https://www.jetbrains.com/clion/) - IDEA
+* [Glade](https://glade.gnome.org/) - Tool to design GTK+ interfaces
 * [Make](https://www.gnu.org/software/make/) - Build Management Tool
 * [libusb](https://libusb.info/) - Library accessing USB devices
 * [ClamAv](https://www.clamav.net/) - Open source antivirus engine
@@ -406,6 +439,8 @@ Exec=sudo /home/pi/duckyDetector/DuckyDetector
 
 * **Philipp Lohse** - *Initial work*
 * **Dennis La** - *Further work*
+* **Johannes Kasser** - *Usability improvements*
+* **Joseph Hangstein** - *Usability improvements*
 
 ## Further information
 - for the usage with CLion `CMakeLists.txt` files were created

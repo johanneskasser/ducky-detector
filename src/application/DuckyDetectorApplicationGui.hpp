@@ -1,6 +1,7 @@
 #ifndef DUCKYDETECTOR_DUCKYDETECTORAPPLICATION_HPP
 #define DUCKYDETECTOR_DUCKYDETECTORAPPLICATION_HPP
 
+
 #include <gtkmm/application.h>
 #include "../gui/DuckyDetectorGui.hpp"
 #include "../analysis/Scanner.hpp"
@@ -27,6 +28,7 @@ class DuckyDetectorApplicationGui : public Gtk::Application {
 
         DuckyDetectorGui* createApplicationWindow();
         void runApplication();
+        void runApplicationInterceptor();
         void onStartScanProcessAndCheckSystemRequirements();
         void onUsbPreCheck();
         void onInitialPeripheryAnalysis();
@@ -44,6 +46,7 @@ class DuckyDetectorApplicationGui : public Gtk::Application {
         void onHideWindow(Gtk::Window* window);
         void onCancelButtonClicked();
         void resetWindow();
+        void onFastAnalysis();
 };
 
 #endif //DUCKYDETECTOR_DUCKYDETECTORAPPLICATION_HPP

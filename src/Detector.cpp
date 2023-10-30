@@ -14,7 +14,7 @@ int main(int argc, char* argv[]) {
         }
     }
 
-    execl("/sbin/shutdown", "shutdown", "-P", "now", (char*)0);
+    //execl("/sbin/shutdown", "shutdown", "-P", "now", (char*)0);
 
     return 0;
 }
